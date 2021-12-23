@@ -1,13 +1,12 @@
 import React, {useEffect, useState} from 'react'
 import {
     View,
-    Text,
-    TouchableOpacity,
+    Image,
 } from 'react-native'
-import BotLeftCurvedContainer from '../components/containers/BotLeftCurvedContainer'
-import TopRightCurvedContainer from '../components/containers/TopRightCurvedContainer'
+import chef_icon from '../assets/chef.png';
 import MainContainer from '../components/containers/MainContainer'
 import GenericInputField from '../components/inputFields/GenericInputField'
+import OvalButton from '../components/buttons/roundedButton/OvalButton'
 
 interface props {
     navigation: any
@@ -31,11 +30,15 @@ const Login: React.FC<props> = ({navigation}) => {
     const handlePassword = (text: string) => {
        setCredientials({...credentials, password: text}) 
     }
+    const handleSubmit = () => {
+        navigation.navigate('DashBoard')
+        console.log("Pressed!")
+    }
 
     console.log('>>>', credentials)
     return (
         <MainContainer>
-            <View style = {{flex: 1, alignItems: 'center',justifyContent: 'center',}}>
+            <View style = {{alignSelf: 'center', flex: 3, justifyContent: 'center',}}>
                 <GenericInputField 
                     name = {'User Name'}
                     value= {credentials.userName}
@@ -43,12 +46,21 @@ const Login: React.FC<props> = ({navigation}) => {
                 />
                 <GenericInputField 
                     name = {'Password'}
-                    value= {credentials.userName}
+                    value= {credentials.password}
                     onChangeText={handlePassword}
+                    hidden
                 />
+                <OvalButton 
+                    onPress={handleSubmit}
+                    style = {{alignSelf: 'flex-end'}}
+                >
+                    Confirm
+                </OvalButton>
             </View>
-            <View style = {{flex: 1, alignItems: 'center'}}>
-            </View>
+            <Image
+                style = {{flex: 1, resizeMode: 'contain', alignSelf: 'center'}}
+                source={chef_icon}
+            />
         </MainContainer>
     )
 }

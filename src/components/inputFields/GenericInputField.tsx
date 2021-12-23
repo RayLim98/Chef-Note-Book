@@ -1,11 +1,13 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {
     View,
     TextInput,
     StyleSheet,
     Text,
+    Dimensions,
 } from 'react-native'
 
+const w = Dimensions.get("window").width
 
 interface Props {
     value: string
@@ -13,6 +15,7 @@ interface Props {
     hidden?: boolean
     onChangeText: (text: string) => void
 }
+
 const GenericInputField: React.FC<Props> = ({value, name,hidden, onChangeText}) => {
     const isPassword = hidden || false
 
@@ -38,8 +41,8 @@ export default GenericInputField
 
 const styles = StyleSheet.create({
     mainContainer: {
-        width: '70%', 
         marginVertical: 8,
+        width: w * 0.7
     },
     textContainer: {
 
