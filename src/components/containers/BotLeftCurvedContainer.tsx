@@ -1,21 +1,22 @@
 import React from 'react'
 import {
     View,
+    Animated,
     StyleSheet,
 } from 'react-native'
 
 interface props {
-    children: JSX.Element
-    flex?: number
+    children?: React.ReactNode 
+    flex?: any
 }
 
 const BotLeftCurvedContainer = ({children, flex}: props ) => {
     return (
-        <View style = {[{flex: flex || 1}, styles.backContainer]}>
+        <Animated.View style = {[{flex: flex || 1}, styles.backContainer]}>
             <View style = {styles.mainContainer}>
                 {children}
             </View>
-        </View>
+        </Animated.View>
     )
 }
 

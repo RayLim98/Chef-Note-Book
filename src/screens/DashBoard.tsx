@@ -1,9 +1,7 @@
-import React from 'react'
+import React, { useRef, useState, useEffect} from 'react'
 import {
     View,
-    Text,
-    TouchableOpacity,
-    ScrollView,
+    Animated,
 } from 'react-native'
 import MainContainer from '../components/containers/MainContainer'
 
@@ -12,12 +10,23 @@ interface Props {
 }
 
 const DashBoard = (props: Props) => {
-    return (
-        <MainContainer>
-            <View>
+    const viewSizeAni = useRef(
+        new Animated.Value(0.2)
+        ).current
 
-            </View>
-        </MainContainer>
+    useEffect(() => {
+        Animated.timing(viewSizeAni, {
+                toValue: 7,
+                duration: 1000,
+                useNativeDriver: false,
+            }
+        ).start()
+    }, [])
+
+    return (
+        <MainContainer
+            scale={viewSizeAni}
+        />
     )
 }
 

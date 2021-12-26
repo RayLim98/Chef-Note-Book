@@ -5,7 +5,7 @@ import {
 } from 'react-native'
 
 interface props {
-    children: React.ReactNode 
+    children?: React.ReactNode 
     flex?: number
 }
 const TopRightCurvedContainer = ({children, flex}: props ) => {

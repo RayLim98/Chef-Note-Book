@@ -18,14 +18,27 @@ import DashBoard from './src/screens/DashBoard';
 import Login from './src/screens/Login';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-const Stack = createNativeStackNavigator();
+export type RootStackParamList = {
+  Login: undefined;
+  DashBoard: undefined;
+}
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const App = () => {
   return (
     <NavigationContainer>
         <Stack.Navigator initialRouteName="Login">
-            <Stack.Screen name="Login" component={Login} options={{headerShown: false}}/>
-            <Stack.Screen name="DashBoard" component={DashBoard} options={{headerShown: false}}/>
+            <Stack.Screen 
+              name="Login" 
+              component={Login} 
+              options={{headerShown: false}}
+            />
+            <Stack.Screen 
+              name="DashBoard" 
+              component={DashBoard} 
+              options={{headerShown: false}}
+            />
         </Stack.Navigator>
     </NavigationContainer>
   );

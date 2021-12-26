@@ -2,28 +2,28 @@ import React from 'react'
 import BotLeftCurvedContainer from './BotLeftCurvedContainer'
 import TopRightCurvedContainer from './TopRightCurvedContainer'
 import {
+    Animated,
     View,
     Text,
 } from 'react-native'
 
 interface Props {
-    children: React.ReactNode 
-    scale?: number
+    children1?: React.ReactNode 
+    children2?: React.ReactNode 
+    scale?: any
 }
-const MainContainer: React.FC<Props> = ({scale, children}) => {
+const MainContainer: React.FC<Props> = ({scale, children1, children2}) => {
     return (
         <View style = {{flex: 1, backgroundColor: '#559B45'}}>
             <BotLeftCurvedContainer
-                flex = {scale || 1}
+                flex = {scale || 0.2}
             >
-                <Text>
-                    Login Screen
-                </Text>
+                {children1}
             </BotLeftCurvedContainer>
             <TopRightCurvedContainer
-                flex = {8}
+                flex = {1}
             >
-                {children}
+                {children2}
             </TopRightCurvedContainer>
         </View>
     )

@@ -37,31 +37,35 @@ const Login: React.FC<props> = ({navigation}) => {
 
     console.log('>>>', credentials)
     return (
-        <MainContainer>
-            <View style = {{alignSelf: 'center', flex: 3, justifyContent: 'center',}}>
-                <GenericInputField 
-                    name = {'User Name'}
-                    value= {credentials.userName}
-                    onChangeText={handleUserName}
-                />
-                <GenericInputField 
-                    name = {'Password'}
-                    value= {credentials.password}
-                    onChangeText={handlePassword}
-                    hidden
-                />
-                <OvalButton 
-                    onPress={handleSubmit}
-                    style = {{alignSelf: 'flex-end'}}
-                >
-                    Confirm
-                </OvalButton>
-            </View>
-            <Image
-                style = {{flex: 1, resizeMode: 'contain', alignSelf: 'center'}}
-                source={chef_icon}
-            />
-        </MainContainer>
+        <MainContainer
+            children2 = {
+                <>
+                    <View style = {{alignSelf: 'center', flex: 3, justifyContent: 'center',}}>
+                        <GenericInputField 
+                            name = {'User Name'}
+                            value= {credentials.userName}
+                            onChangeText={handleUserName}
+                        />
+                        <GenericInputField 
+                            name = {'Password'}
+                            value= {credentials.password}
+                            onChangeText={handlePassword}
+                            hidden
+                        />
+                        <OvalButton 
+                            onPress={handleSubmit}
+                            style = {{alignSelf: 'flex-end'}}
+                        >
+                            Confirm
+                        </OvalButton>
+                    </View>
+                    <Image
+                        style = {{flex: 1, resizeMode: 'contain', alignSelf: 'center'}}
+                        source={chef_icon}
+                    />
+                </>
+            }
+        />
     )
 }
 
