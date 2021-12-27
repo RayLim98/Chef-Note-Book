@@ -1,7 +1,6 @@
 package com.chefnotebook;
 
 import com.facebook.react.ReactActivity;
-import android.os.Bundle;
 
 public class MainActivity extends ReactActivity {
 
@@ -12,9 +11,5 @@ public class MainActivity extends ReactActivity {
   @Override
   protected String getMainComponentName() {
     return "chefnotebook";
-  }
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-  super.onCreate(null);
   }
 }
