@@ -1,6 +1,5 @@
 import 'react-native-gesture-handler'
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import {
   StyleSheet,
@@ -8,13 +7,21 @@ import {
 // import Routes from './src/routes';
 import DashBoard from './src/screens/DashBoard';
 import Login from './src/screens/Login';
+import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
+
 
 export type RootStackParamList = {
   Login: undefined;
   DashBoard: undefined;
 }
 
-const Stack = createStackNavigator<RootStackParamList>();
+// const Stack = createStackNavigator<RootStackParamList>();
+const Stack = createSharedElementStackNavigator<RootStackParamList>();
+
+const OptionsConfig = {
+  headerShown: false,
+  animationEnabled: false,
+}
 
 const App = () => {
   return (
@@ -23,12 +30,12 @@ const App = () => {
             <Stack.Screen 
               name="Login" 
               component={Login} 
-              options={{headerShown: false}}
+              options={ { ...OptionsConfig, title: "Login" } }
             />
             <Stack.Screen 
               name="DashBoard" 
               component={DashBoard} 
-              options={{headerShown: false}}
+              options={ { ...OptionsConfig, title: "Login" } }
             />
         </Stack.Navigator>
     </NavigationContainer>

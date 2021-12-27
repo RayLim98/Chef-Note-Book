@@ -14,7 +14,7 @@ interface Props {
 }
 const MainContainer: React.FC<Props> = ({scale, children1, children2}) => {
     return (
-        <View style = {{flex: 1, backgroundColor: '#559B45'}}>
+        <View style = {{flex: 1, backgroundColor: '#559B45', zIndex: 1,elevation: 1}}>
             <BotLeftCurvedContainer
                 flex = {scale || 0.2}
             >
