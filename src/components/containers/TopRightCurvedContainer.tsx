@@ -3,20 +3,21 @@ import {
     View,
     StyleSheet,
     ViewStyle,
+    Animated,
 } from 'react-native'
 
 interface props {
     children?: React.ReactNode 
-    style?: ViewStyle
+    bgColor?: ViewStyle
     flex?: number
 }
-const TopRightCurvedContainer = ({children, flex, style}: props ) => {
+const TopRightCurvedContainer = ({children, flex, bgColor}: props ) => {
     return (
-        <View style = {[{ flex: flex, backgroundColor: '#559B45' }, style]}>
+        <Animated.View style = {[{ flex: flex, backgroundColor: '#559B45' }, bgColor]}>
             <View style = {styles.mainContainer}>
                 {children}
             </View>
-        </View>
+        </Animated.View>
     )
 }
 

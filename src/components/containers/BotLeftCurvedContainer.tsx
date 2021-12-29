@@ -8,18 +8,18 @@ import {
 
 interface props {
     children?: React.ReactNode 
-    style?: ViewStyle
-    flex?: any
+    bgColor?: any
+    flex?: Animated.Value | number 
 }
 
 export const BOTTOMLEFTRADIUS = 35
 
-const BotLeftCurvedContainer = ({children, flex, style}: props ) => {
+const BotLeftCurvedContainer = ({children, flex, bgColor}: props ) => {
     return (
-        <Animated.View style = {[{flex: flex || 1}, styles.backContainer, style]}>
-            <View style = {styles.mainContainer}>
+        <Animated.View style = {[{flex: flex || 1}, styles.backContainer,]}>
+            <Animated.View style = {[styles.mainContainer, bgColor]}>
                 {children}
-            </View>
+            </Animated.View>
         </Animated.View>
     )
 }

@@ -3,15 +3,18 @@ import BotLeftCurvedContainer from './BotLeftCurvedContainer'
 import TopRightCurvedContainer from './TopRightCurvedContainer'
 import {
     View,
+    Animated,
     ViewStyle,
+    StyleProp,
 } from 'react-native'
 
 interface Props {
+    bgColor?: any 
     children1?: React.ReactNode 
     children2?: React.ReactNode 
     disableChild1?: boolean 
     disableChild2?: boolean 
-    scale?: any
+    scale?: Animated.Value
     style?: ViewStyle 
 }
 const MainContainer: React.FC<Props> = ({
@@ -21,9 +24,10 @@ const MainContainer: React.FC<Props> = ({
     disableChild1, 
     disableChild2,
     style,
+    bgColor,
 }) => {
     return (
-        <View style = {[ {flex: 1, backgroundColor: '#559B45', }, style ]}>
+        <Animated.View style = {[ {flex: 1, backgroundColor: bgColor || '#559B45', }, style ]}>
             {
                 disableChild1
                 ? null 
@@ -44,7 +48,7 @@ const MainContainer: React.FC<Props> = ({
                     {children2}
                 </TopRightCurvedContainer>
             }
-        </View>
+        </Animated.View>
     )
 }
 

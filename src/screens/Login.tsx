@@ -31,6 +31,7 @@ const Login: React.FC<props> = ({navigation}) => {
     const handlePassword = (text: string) => {
        setCredientials({...credentials, password: text}) 
     }
+
     const handleSubmit = () => {
         navigation.navigate('DashBoard')
         console.log("Pressed!")
@@ -69,10 +70,5 @@ const Login: React.FC<props> = ({navigation}) => {
         />
     )
 }
-
-// Login.sharedElements={(route, otherRoute, showing) => {
-//             const { item } = route.params;
-//             return [`item.${item.id}.photo`];
-//           }}
 
 export default Login

@@ -1,12 +1,39 @@
 import React, { useRef, useState, useEffect} from 'react'
 import {
-    View,
     Animated,
-    Text,
-    Easing,
+    StyleSheet,
 } from 'react-native'
 import MainContainer from '../components/containers/MainContainer'
-import {BOTTOMLEFTRADIUS} from '../components/containers/BotLeftCurvedContainer'
+import HeroSqButton from '../components/buttons/squareButton/heroSqButton'
+import image from '../assets/biryani.png'
+import { ScrollView } from 'react-native-gesture-handler'
+
+const data = [
+    {
+        uri: null,
+        name: 'Chicken Noodles'
+    },
+    {
+        uri: null,
+        name: 'Pad thai'
+    },
+    {
+        uri: null,
+        name: 'Butter Chicken'
+    },
+    {
+        uri: null,
+        name: 'Teriyaki Chicken'
+    },
+    {
+        uri: null,
+        name: 'Miso Steak'
+    },
+    {
+        uri: null,
+        name: 'Korean Chicken'
+    },
+]
 
 interface Props {
     navigation?: any
@@ -14,6 +41,8 @@ interface Props {
 
 const Home = (props: Props) => {
     const viewSizeAni = useRef( new Animated.Value(0.2)).current
+    const viewOp = useRef( new Animated.Value(0)).current
+    
     useEffect(() => {
         Animated.timing(viewSizeAni, {
                 toValue: 30,
@@ -23,18 +52,36 @@ const Home = (props: Props) => {
         ).start(()=> {
             console.log("Animation finished")
         })
+        Animated.timing(viewOp, {
+                toValue: 1,
+                duration: 1000,
+                useNativeDriver: false,
+            }
+        ).start()
     }, [])
 
     return (
         <MainContainer
             scale={viewSizeAni}
-            // disableChild2 = {state}
             children1={
-                <View>
-                    <Text>
-                        hello
-                    </Text>
-                </View>
+                <ScrollView style = {{flex: 1}}>
+                    <Animated.View style = {[ styles.listContainer, {opacity: viewOp} ]}>
+                        {/* <HeroSqButton
+                            label={'Name'}
+                            uri={image}
+                        /> */}
+                        {
+                            data.map((item)=> 
+                                    <HeroSqButton
+                                        onPress={()=> console.log(item.name,'has been pressed')}
+                                        key={item.name}
+                                        label={item.name}
+                                        uri={image}
+                                    />
+                            )
+                        } 
+                    </Animated.View>
+                </ScrollView>
             }
         />
     )
@@ -42,3 +89,12 @@ const Home = (props: Props) => {
 }
 
 export default Home
+
+const styles = StyleSheet.create({
+    listContainer: {
+        flex:1, 
+        flexWrap: 'wrap', 
+        flexDirection: 'row',
+        justifyContent: 'space-evenly', 
+    },
+}) 
