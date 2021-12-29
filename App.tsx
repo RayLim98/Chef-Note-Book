@@ -2,15 +2,15 @@ import 'react-native-gesture-handler'
 import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import {
+  Image,
   StyleSheet,
 } from 'react-native';
-// import Routes from './src/routes';
-import DashBoard from './src/screens/DashBoard';
 import Login from './src/screens/Login';
+import TabNav from './src/components/navigations/tabNav';
 import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
 
 
-export type RootStackParamList = {
+type RootStackParamList = {
   Login: undefined;
   DashBoard: undefined;
 }
@@ -34,8 +34,8 @@ const App = () => {
             />
             <Stack.Screen 
               name="DashBoard" 
-              component={DashBoard} 
-              options={ { ...OptionsConfig, title: "Login" } }
+              component={TabNav} 
+              options={ { ...OptionsConfig, title: "DashBoard" } }
             />
         </Stack.Navigator>
     </NavigationContainer>
@@ -43,22 +43,35 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  tabContainer: {
+    borderRadius: 6,
+    marginHorizontal: 50,
+    marginBottom: 6,
+    alignSelf: 'center'
+    // shadowColor: "#000",
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 2,
+    // },
+    // shadowOpacity: 0.25,
+    // shadowRadius: 3.84,
+
+    // elevation: 5,
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
+  tabBarContainer: {
+    height: 70,
+    borderRadius:1,
+    backgroundColor: 'white',
+    shadowColor: "white",
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 0,
+    // },
+    // shadowOpacity: 0,
+    // shadowRadius: 0,
+
+    // elevation: 0,
+  }
 });
 
 export default App;

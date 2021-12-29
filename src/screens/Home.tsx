@@ -3,32 +3,32 @@ import {
     View,
     Animated,
     Text,
+    Easing,
 } from 'react-native'
-import { SharedElement } from 'react-navigation-shared-element'
 import MainContainer from '../components/containers/MainContainer'
-import chef_icon from '../assets/chef.png';
+import {BOTTOMLEFTRADIUS} from '../components/containers/BotLeftCurvedContainer'
 
 interface Props {
     navigation?: any
 }
 
-const DashBoard = (props: Props) => {
-    const viewSizeAni = useRef(
-        new Animated.Value(0.2)
-        ).current
-
+const Home = (props: Props) => {
+    const viewSizeAni = useRef( new Animated.Value(0.2)).current
     useEffect(() => {
         Animated.timing(viewSizeAni, {
-                toValue: 7,
+                toValue: 30,
                 duration: 1000,
                 useNativeDriver: false,
             }
-        ).start()
+        ).start(()=> {
+            console.log("Animation finished")
+        })
     }, [])
 
     return (
         <MainContainer
             scale={viewSizeAni}
+            // disableChild2 = {state}
             children1={
                 <View>
                     <Text>
@@ -41,4 +41,4 @@ const DashBoard = (props: Props) => {
 
 }
 
-export default DashBoard
+export default Home

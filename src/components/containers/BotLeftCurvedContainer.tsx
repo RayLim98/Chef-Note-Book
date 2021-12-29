@@ -3,16 +3,20 @@ import {
     View,
     Animated,
     StyleSheet,
+    ViewStyle,
 } from 'react-native'
 
 interface props {
     children?: React.ReactNode 
+    style?: ViewStyle
     flex?: any
 }
 
-const BotLeftCurvedContainer = ({children, flex}: props ) => {
+export const BOTTOMLEFTRADIUS = 35
+
+const BotLeftCurvedContainer = ({children, flex, style}: props ) => {
     return (
-        <Animated.View style = {[{flex: flex || 1}, styles.backContainer]}>
+        <Animated.View style = {[{flex: flex || 1}, styles.backContainer, style]}>
             <View style = {styles.mainContainer}>
                 {children}
             </View>
@@ -26,7 +30,7 @@ const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
         backgroundColor: '#559b45',
-        borderBottomLeftRadius: 35,
+        borderBottomLeftRadius: BOTTOMLEFTRADIUS,
         padding: 8,
     },
     backContainer: {

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import {
     View,
     Image,
@@ -38,37 +38,35 @@ const Login: React.FC<props> = ({navigation}) => {
 
     console.log('>>>', credentials)
     return (
-        <SharedElement id = 'screenTransition' style = {{flex:1}}>
-            <MainContainer
-                children2 = {
-                    <>
-                        <View style = {{alignSelf: 'center', flex: 3, justifyContent: 'center',}}>
-                            <GenericInputField 
-                                name = {'User Name'}
-                                value= {credentials.userName}
-                                onChangeText={handleUserName}
-                            />
-                            <GenericInputField 
-                                name = {'Password'}
-                                value= {credentials.password}
-                                onChangeText={handlePassword}
-                                hidden
-                            />
-                            <OvalButton 
-                                onPress={handleSubmit}
-                                style = {{alignSelf: 'flex-end'}}
-                            >
-                                Confirm
-                            </OvalButton>
-                        </View>
-                        <Image
-                            style = {{height: 100, resizeMode: 'contain', alignSelf: 'center',}}
-                            source={chef_icon}
+        <MainContainer
+            children2 = {
+                <>
+                    <View style = {{alignSelf: 'center', flex: 3, justifyContent: 'center',}}>
+                        <GenericInputField 
+                            name = {'User Name'}
+                            value= {credentials.userName}
+                            onChangeText={handleUserName}
                         />
-                    </>
-                }
-            />
-        </SharedElement>
+                        <GenericInputField 
+                            name = {'Password'}
+                            value= {credentials.password}
+                            onChangeText={handlePassword}
+                            hidden
+                        />
+                        <OvalButton 
+                            onPress={handleSubmit}
+                            style = {{alignSelf: 'flex-end'}}
+                        >
+                            Confirm
+                        </OvalButton>
+                    </View>
+                    <Image
+                        style = {{height: 100, resizeMode: 'contain', alignSelf: 'center',}}
+                        source={chef_icon}
+                    />
+                </>
+            }
+        />
     )
 }
 
