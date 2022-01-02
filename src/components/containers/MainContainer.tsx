@@ -33,6 +33,7 @@ const MainContainer: React.FC<Props> = ({
                 ? null 
                 :
                 <BotLeftCurvedContainer
+                    bgColor={bgColor}
                     flex = {scale || 0.2}
                 >
                     {children1}
@@ -43,6 +44,7 @@ const MainContainer: React.FC<Props> = ({
                 ? null 
                 :
                 <TopRightCurvedContainer
+                    bgColor={bgColor}
                     flex = {1}
                 >
                     {children2}

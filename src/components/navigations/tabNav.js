@@ -15,37 +15,39 @@ import food from '../../assets/food.png'
 
 const Tab = createBottomTabNavigator();
 
-const TabNav = () => (
-  <Tab.Navigator 
-    screenOptions={({ route }) => ({
-      tabBarIcon: ({ focused, color, size }) => {
-        let iconName;
+const TabNav = () => {
+  return ( 
+      <Tab.Navigator 
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
 
-        if (route.name === 'Recipes') {
-          iconName = focused
-            ? food
-            : food
-        } else if (route.name === 'ShopList') {
-          iconName = focused 
-            ? r_b
-            : r_b
-        }
+            if (route.name === 'Recipes') {
+              iconName = focused
+                ? food
+                : food
+            } else if (route.name === 'ShopList') {
+              iconName = focused 
+                ? r_b
+                : r_b
+            }
 
-        // You can return any component that you like here!
-        return <Image source = {iconName} style = {{resizeMode: 'contain', flex: 1}} />;
-      },
-    })}
-    tabBarOptions={{
-      activeBackgroundColor: '#E8E8E8',
-      inactiveBackgroundColor: 'white',
-      tabStyle: styles.tabContainer,
-      style: styles.tabBarContainer
-    }}
-  >
-    <Tab.Screen name = "Recipes" component = {Home}/>
-    <Tab.Screen name = "ShopList" component = {ShopList}/>
-  </Tab.Navigator>
-)
+            // You can return any component that you like here!
+            return <Image source = {iconName} style = {{resizeMode: 'contain', flex: 1}} />;
+          },
+        })}
+        tabBarOptions={{
+          activeBackgroundColor: '#E8E8E8',
+          inactiveBackgroundColor: 'white',
+          tabStyle: styles.tabContainer,
+          style: styles.tabBarContainer
+        }}
+      >
+        <Tab.Screen name = "Recipes" component = {Home}/>
+        <Tab.Screen name = "ShopList" component = {ShopList}/>
+      </Tab.Navigator>
+    )
+}
 
 export default TabNav
 
@@ -54,7 +56,7 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     paddingVertical: 4,
     marginBottom: 10,
-    marginHorizontal: '15%'
+    marginHorizontal: '15%',
   },
   tabBarContainer: {
     height: 70,
