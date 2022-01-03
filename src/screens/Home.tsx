@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect, FC} from 'react'
+import { SharedElement } from 'react-navigation-shared-element'
 import {
     Image,
     View,
@@ -8,10 +9,12 @@ import {
 } from 'react-native'
 import MainContainer from '../components/containers/MainContainer'
 import HeroSqButton from '../components/buttons/squareButton/heroSqButton'
+import logo from '../assets/chef.png'
 import image from '../assets/biryani.png'
-import setting from '../assets/settings.png'
 import { ScrollView } from 'react-native-gesture-handler'
 import { useIsFocused } from '@react-navigation/native'
+import MainUpperTab from '../components/upperTab/mainUpTab'
+import GreyInputField from '../components/inputFields/greyInputField'
 
 const data = [
     {
@@ -91,15 +94,15 @@ const Home: FC<Props> = ({navigation}) => {
             bgColor={{backgroundColor: bgStyle}}
             children1={
                 <View style = {{flex: 1}}>
-                    <View style = { styles.headerContainer }>
-                        <Image source = {setting} style = {styles.image}/>
-                        <Image source = {setting} style = {styles.image}/>
-                        <View style = {styles.childContainer}>
+                    <MainUpperTab logo={ 
+                        <SharedElement id = 'logo' style = {{flex: 1}}>
+                            <Image
+                                style = {styles.image}
+                                source={logo}
+                            />
+                        </SharedElement>
 
-                        </View>
-                        <Image source = {setting} style = {styles.image}/>
-                    </View>
-
+                    }/>
                     <ScrollView style = {{flex: 1}}>
                         <Animated.View style = {[ styles.listContainer, {opacity: viewOp} ]}>
                             {   

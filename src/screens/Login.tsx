@@ -3,9 +3,9 @@ import {
     View,
     Image,
 } from 'react-native'
-import chef_icon from '../assets/chef.png';
+import logo from '../assets/chef.png';
 import MainContainer from '../components/containers/MainContainer'
-import GenericInputField from '../components/inputFields/GenericInputField'
+import GenericInputField from '../components/inputFields/genericInputField'
 import OvalButton from '../components/buttons/roundedButton/OvalButton'
 import { SharedElement } from 'react-navigation-shared-element';
 
@@ -32,8 +32,8 @@ const Login: React.FC<props> = ({navigation}) => {
        setCredientials({...credentials, password: text}) 
     }
 
-    const handleSubmit = () => {
-        navigation.navigate('DashBoard')
+    const handleSubmit = (item: object) => {
+        navigation.navigate('DashBoard', item)
         console.log("Pressed!")
     }
 
@@ -55,16 +55,18 @@ const Login: React.FC<props> = ({navigation}) => {
                             hidden
                         />
                         <OvalButton 
-                            onPress={handleSubmit}
+                            onPress={()=> handleSubmit({ id: 'logo' , imageUrl: logo})}
                             style = {{alignSelf: 'flex-end'}}
                         >
                             Confirm
                         </OvalButton>
                     </View>
-                    <Image
-                        style = {{height: 100, resizeMode: 'contain', alignSelf: 'center',}}
-                        source={chef_icon}
-                    />
+                    <SharedElement id = 'logo'>
+                        <Image
+                            style = {{height: 100, resizeMode: 'contain', alignSelf: 'center',}}
+                            source={logo}
+                        />
+                    </SharedElement>
                 </>
             }
         />

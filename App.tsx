@@ -2,7 +2,6 @@ import 'react-native-gesture-handler'
 import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import {
-  Image,
   StyleSheet,
 } from 'react-native';
 import Login from './src/screens/Login';
@@ -20,7 +19,7 @@ const Stack = createSharedElementStackNavigator<RootStackParamList>();
 
 const OptionsConfig = {
   headerShown: false,
-  animationEnabled: false,
+  // animationEnabled: false,
 }
 
 const App = () => {
@@ -30,11 +29,28 @@ const App = () => {
             <Stack.Screen 
               name="Login" 
               component={Login} 
+              // sharedElements={(route, otherRoute, showing) => {
+              //   return [
+              //     {
+              //       id: 'logo',
+              //       animation: 'fade'
+              //     }
+              //   ];
+              // }}
               options={ { ...OptionsConfig, title: "Login" } }
             />
             <Stack.Screen 
               name="DashBoard" 
               component={TabNav} 
+              sharedElements={(route, otherRoute, showing) => {
+                const { item } = route.params;
+                return [
+                  {
+                    id: 'logo',
+                    animation: 'fade'
+                  }
+                ];
+              }}
               options={ { ...OptionsConfig, title: "DashBoard" } }
             />
         </Stack.Navigator>
