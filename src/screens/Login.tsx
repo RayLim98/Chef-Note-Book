@@ -8,9 +8,10 @@ import MainContainer from '../components/containers/MainContainer'
 import GenericInputField from '../components/inputFields/genericInputField'
 import OvalButton from '../components/buttons/roundedButton/OvalButton'
 import { SharedElement } from 'react-navigation-shared-element';
+import { useNavigation } from '@react-navigation/native';
+
 
 interface props {
-    navigation: any
 }
 
 interface credentials {
@@ -18,7 +19,8 @@ interface credentials {
     password: string
 } 
 
-const Login: React.FC<props> = ({navigation}) => {
+const Login: React.FC<props> = ({}) => {
+    const navigation = useNavigation()
     const [credentials, setCredientials] = useState<credentials>({
         userName: '',
         password: '',

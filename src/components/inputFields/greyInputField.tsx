@@ -2,15 +2,19 @@ import React, { FC } from 'react'
 import { StyleSheet, TextInput, TextStyle, } from 'react-native'
 
 interface Props {
-    placeholder: string 
     style?: TextStyle 
+    setRef?: any
+    placeholder: string 
+    onChangeText: (text: string)=> void
 }
 
-const GreyInputField: FC<Props> = ({placeholder, style}) => {
+const GreyInputField: FC<Props> = ({setRef,placeholder, style, onChangeText}) => {
     return (
         <TextInput 
+            ref={setRef}
             style = {[styles.searchBar, style]}
             placeholder={placeholder} 
+            onChangeText={onChangeText}
         />
     )
 }

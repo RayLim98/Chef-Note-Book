@@ -1,10 +1,10 @@
 import React, { FC, ReactNode } from 'react'
 import { StyleSheet, Text, TextStyle, } from 'react-native'
-import { family, lrgFont } from './textConfigs'
+import { family, lrgFont, title } from './textConfigs'
 
 interface Props {
    children:  ReactNode 
-   style:  TextStyle 
+   style?: TextStyle 
 }
 
 const TextTitle: FC<Props> = ({children, style}) => {
@@ -19,7 +19,7 @@ export default TextTitle
 
 const styles = StyleSheet.create({
     text: {
-        fontSize: lrgFont,
+        fontSize: title,
         fontFamily: family,
         fontWeight: 'bold',
         color: 'white',

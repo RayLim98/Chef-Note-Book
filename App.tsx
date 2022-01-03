@@ -29,21 +29,12 @@ const App = () => {
             <Stack.Screen 
               name="Login" 
               component={Login} 
-              // sharedElements={(route, otherRoute, showing) => {
-              //   return [
-              //     {
-              //       id: 'logo',
-              //       animation: 'fade'
-              //     }
-              //   ];
-              // }}
               options={ { ...OptionsConfig, title: "Login" } }
             />
             <Stack.Screen 
               name="DashBoard" 
               component={TabNav} 
               sharedElements={(route, otherRoute, showing) => {
-                const { item } = route.params;
                 return [
                   {
                     id: 'logo',

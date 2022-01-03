@@ -1,32 +1,40 @@
-import React, { FC, ReactNode } from 'react'
+import React, { FC, useRef, useState } from 'react'
 import { TextInput, StyleSheet, Image, TouchableOpacity, View, ImageSourcePropType } from 'react-native'
 import setting from '../../assets/settings.png'
 import search from '../../assets/search.png'
-import chef from '../../assets/chef.png'
 import GreyInputField from '../inputFields/greyInputField'
-import { SharedElement } from 'react-navigation-shared-element'
 
 interface Props {
     logo?: any
+    onChangeText: (text: string)=> void
+    onPressSettings: ()=> void
 }
 
-const MainUpperTab:FC<Props> = ({ 
-    logo 
-}) => {
+const MainUpperTab:FC<Props> = ({ logo, onPressSettings, onChangeText }) => {
+    const searchBarRef = useRef<TextInput>(null)
+
     return (
         <View style = { styles.headerContainer }>
             <View style = {styles.imageContainer}>
                 {logo}
             </View>
-            <TouchableOpacity style = {styles.imageContainer}>
+            <TouchableOpacity 
+                style = {styles.imageContainer}
+                onPress={()=> searchBarRef.current?.focus()}
+            >
                 <Image source = {search} style = {styles.smlImage}/>
             </TouchableOpacity>
-            <TouchableOpacity style = {styles.childContainer}>
+            <View style = {styles.childContainer} >
                 <GreyInputField
+                    setRef={searchBarRef}
+                    onChangeText={onChangeText}
                     placeholder='filter recipe'
                 />
-            </TouchableOpacity>
-            <TouchableOpacity style = {styles.imageContainer}>
+            </View>
+            <TouchableOpacity 
+                style = {styles.imageContainer}
+                onPress={onPressSettings}
+            >
                 <Image source = {setting} style = {styles.smlImage}/>
             </TouchableOpacity>
         </View>

@@ -6,6 +6,7 @@ import {
     Animated,
     StyleSheet,
     TouchableOpacity,
+    Text,
 } from 'react-native'
 import MainContainer from '../components/containers/MainContainer'
 import HeroSqButton from '../components/buttons/squareButton/heroSqButton'
@@ -14,7 +15,7 @@ import image from '../assets/biryani.png'
 import { ScrollView } from 'react-native-gesture-handler'
 import { useIsFocused } from '@react-navigation/native'
 import MainUpperTab from '../components/upperTab/mainUpTab'
-import GreyInputField from '../components/inputFields/greyInputField'
+import TextTitle from '../components/textComponents/textTitle'
 
 const data = [
     {
@@ -51,6 +52,7 @@ const Home: FC<Props> = ({navigation}) => {
     const bgColor = useRef( new Animated.Value(0))
     const viewSizeAni = useRef( new Animated.Value(0.2)).current
     const viewOp = useRef( new Animated.Value(0)).current
+    const [textValue, settextValue] = useState('')
     const isFocused = useIsFocused();
 
     const bgStyle = bgColor.current.interpolate({
@@ -88,6 +90,14 @@ const Home: FC<Props> = ({navigation}) => {
         }
     }, [ isFocused ])
 
+    const settings = () => {
+        console.log('settings had been pressed')
+    }
+    const onChangeText = (text: string) => {
+        settextValue(text)
+    }
+
+    console.log('Search bar value:', textValue)
     return (
         <MainContainer
             scale={viewSizeAni}
@@ -100,9 +110,13 @@ const Home: FC<Props> = ({navigation}) => {
                                 style = {styles.image}
                                 source={logo}
                             />
-                        </SharedElement>
-
-                    }/>
+                        </SharedElement>}
+                        onChangeText={onChangeText}
+                        onPressSettings={settings}
+                    />
+                    <TextTitle style = {{marginVertical:20, marginHorizontal: 16, }}> 
+                        Recipes 
+                    </TextTitle>
                     <ScrollView style = {{flex: 1}}>
                         <Animated.View style = {[ styles.listContainer, {opacity: viewOp} ]}>
                             {   
