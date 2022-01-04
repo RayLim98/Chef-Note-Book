@@ -8,26 +8,28 @@ import {
 } from 'react-native'
 import MainContainer from '../components/containers/MainContainer'
 import HeroSqButton from '../components/buttons/squareButton/heroSqButton'
-import logo from '../assets/chef.png'
-import image from '../assets/biryani.png'
 import { ScrollView } from 'react-native-gesture-handler'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import MainUpperTab from '../components/upperTab/mainUpTab'
 import TextTitle from '../components/textComponents/textTitle'
 import data from '../dummyData/recipes'
+import ImageButton from '../components/buttons/borderlessButton/imageButton'
 
+import logo from '../assets/chef.png'
+import image from '../assets/biryani.png'
+import add from '../assets/add.png'
 interface Props {
 }
 
 const Home: FC<Props> = () => {
     const navigation = useNavigation()
+    const [textValue, settextValue] = useState('')
+    const isFocused = useIsFocused();
 
     const bgColor = useRef( new Animated.Value(0))
     const viewSizeAni = useRef( new Animated.Value(0.2)).current
     const viewOp = useRef( new Animated.Value(0)).current
-    const [textValue, settextValue] = useState('')
-    const isFocused = useIsFocused();
-
+    
     const bgStyle = bgColor.current.interpolate({
         inputRange: [0,1],
         outputRange: ['#d5f9cd','rgb(85, 155, 69)'],
@@ -87,9 +89,15 @@ const Home: FC<Props> = () => {
                         onChangeText={onChangeText}
                         onPressSettings={settings}
                     />
-                    <TextTitle style = {{marginVertical:20, marginHorizontal: 16, }}> 
-                        Recipes 
-                    </TextTitle>
+                    <View style = {{flexDirection: 'row',}}>
+                        <TextTitle style = {{marginVertical:20, marginHorizontal: 16, }}> 
+                            Recipes 
+                        </TextTitle>
+                        <ImageButton
+                            source = {add}
+                            onPress={()=> navigation.navigate('CreateRecipe')}
+                        />
+                    </View>
                     <ScrollView style = {{flex: 1}}>
                         <Animated.View style = {[ styles.listContainer, {opacity: viewOp} ]}>
                             {   
@@ -119,6 +127,7 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap', 
         flexDirection: 'row',
         justifyContent: 'space-evenly', 
+        marginVertical: 20,
     },
     headerContainer: {
         height: 60,

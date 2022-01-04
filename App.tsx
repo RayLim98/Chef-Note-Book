@@ -14,6 +14,7 @@ type RootStackParamList = {
   Login: undefined;
   DashBoard: undefined;
   Recipe: object
+  CreateRecipe: undefined
 }
 
 // const Stack = createStackNavigator<RootStackParamList>();
@@ -50,6 +51,11 @@ const App = () => {
               name="Recipe" 
               component={Recipe} 
               options={ { ...OptionsConfig, title: "Recipe" } }
+            />
+            <Stack.Screen 
+              name="CreateRecipe" 
+              component={Recipe} 
+              options={ { ...OptionsConfig, title: "CreateRecipe" } }
             />
         </Stack.Navigator>
     </NavigationContainer>

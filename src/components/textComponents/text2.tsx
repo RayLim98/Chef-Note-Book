@@ -4,7 +4,7 @@ import { family, smlFont } from './textConfigs'
 
 interface Props {
    children:  ReactNode 
-   style:  TextStyle
+   style?:  TextStyle
 }
 
 const Text2: FC<Props> = ({children, style}) => {

@@ -9,8 +9,6 @@ interface Props {
 }
 
 const PlainUpperTab:FC<Props> = ({ onPressSettings }) => {
-    const searchBarRef = useRef<TextInput>(null)
-
     return (
         <View style = { styles.headerContainer }>
             <View style = {styles.imageContainer}>

@@ -4,7 +4,7 @@ import { family, medFont } from './textConfigs'
 
 interface Props {
    children:  ReactNode 
-   style:  TextStyle 
+   style?:  TextStyle 
 }
 
 const Text3: FC<Props> = ({children, style}) => {

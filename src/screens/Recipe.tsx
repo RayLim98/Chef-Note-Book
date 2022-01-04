@@ -22,7 +22,7 @@ const Recipe: FC<Props> = ({}) => {
                 <PlainUpperTab onPressSettings={()=> {}}/>
                 <ScrollView style = {{flex: 1, padding: 16}}>
                     <Text>
-                        Name
+                        Recipe Screen
                     </Text>
                     {/* <Image/> */}
                     <View>
