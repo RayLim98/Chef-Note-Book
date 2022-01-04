@@ -6,12 +6,14 @@ import {
 } from 'react-native';
 import Login from './src/screens/Login';
 import TabNav from './src/components/navigations/tabNav';
+import Recipe from './src/screens/Recipe';
 import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
 
 
 type RootStackParamList = {
   Login: undefined;
   DashBoard: undefined;
+  Recipe: object
 }
 
 // const Stack = createStackNavigator<RootStackParamList>();
@@ -43,6 +45,11 @@ const App = () => {
                 ];
               }}
               options={ { ...OptionsConfig, title: "DashBoard" } }
+            />
+            <Stack.Screen 
+              name="Recipe" 
+              component={Recipe} 
+              options={ { ...OptionsConfig, title: "Recipe" } }
             />
         </Stack.Navigator>
     </NavigationContainer>

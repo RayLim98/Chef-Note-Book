@@ -6,14 +6,12 @@ import {
 } from 'react-native'
 
 interface Props {
-    children1: React.ReactNode
-    children2?: React.ReactNode
+    children: React.ReactNode
     bgColor?: any 
     scale?: any
 }
 const LowBarHeaderContainer: React.FC<Props> = ({
-        children1,
-        children2,
+        children,
         bgColor,
         scale,
     }) => {
@@ -23,13 +21,12 @@ const LowBarHeaderContainer: React.FC<Props> = ({
                 flex = {scale || 30}
                 bgColor={bgColor}
             >
-                {children1}
+                {children}
             </BotLeftCurvedContainer>
             <TopRightCurvedContainer
                 flex = {1}
                 bgColor={bgColor}
             >
-                {children2}
             </TopRightCurvedContainer>
         </View>
     )

@@ -5,50 +5,23 @@ import {
     View,
     Animated,
     StyleSheet,
-    TouchableOpacity,
-    Text,
 } from 'react-native'
 import MainContainer from '../components/containers/MainContainer'
 import HeroSqButton from '../components/buttons/squareButton/heroSqButton'
 import logo from '../assets/chef.png'
 import image from '../assets/biryani.png'
 import { ScrollView } from 'react-native-gesture-handler'
-import { useIsFocused } from '@react-navigation/native'
+import { useIsFocused, useNavigation } from '@react-navigation/native'
 import MainUpperTab from '../components/upperTab/mainUpTab'
 import TextTitle from '../components/textComponents/textTitle'
-
-const data = [
-    {
-        uri: null,
-        name: 'Chicken Noodles'
-    },
-    {
-        uri: null,
-        name: 'Pad thai'
-    },
-    {
-        uri: null,
-        name: 'Butter Chicken'
-    },
-    {
-        uri: null,
-        name: 'Teriyaki Chicken'
-    },
-    {
-        uri: null,
-        name: 'Miso Steak'
-    },
-    {
-        uri: null,
-        name: 'Korean Chicken'
-    },
-]
+import data from '../dummyData/recipes'
 
 interface Props {
-    navigation?: any
 }
 
-const Home: FC<Props> = ({navigation}) => {
+const Home: FC<Props> = () => {
+    const navigation = useNavigation()
+
     const bgColor = useRef( new Animated.Value(0))
     const viewSizeAni = useRef( new Animated.Value(0.2)).current
     const viewOp = useRef( new Animated.Value(0)).current
@@ -122,7 +95,7 @@ const Home: FC<Props> = ({navigation}) => {
                             {   
                                 data.map((item)=> 
                                         <HeroSqButton
-                                            onPress={()=> console.log(item.name,'has been pressed')}
+                                            onPress={()=> navigation.navigate('Recipe', item)}
                                             key={item.name}
                                             label={item.name}
                                             uri={image}
