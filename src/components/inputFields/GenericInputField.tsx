@@ -13,10 +13,11 @@ interface Props {
     value: string
     name?: string
     hidden?: boolean
+    onBlur?: ()=> void
     onChangeText: (text: string) => void
 }
 
-const GenericInputField: React.FC<Props> = ({value, name,hidden, onChangeText}) => {
+const GenericInputField: React.FC<Props> = ({value, name,hidden, onChangeText, onBlur}) => {
     const isPassword = hidden || false
 
     return (
@@ -32,6 +33,7 @@ const GenericInputField: React.FC<Props> = ({value, name,hidden, onChangeText}) 
                 value = {value}
                 visible-password = {true}
                 onChangeText={(text)=>onChangeText(text)}
+                onBlur={onBlur}
             />
         </View>
     )
@@ -49,7 +51,7 @@ const styles = StyleSheet.create({
     },
     textInputContainer: {
         borderColor: '#3B5A39',
-        height: 60,
+        height: 50,
         borderRadius: 5,
         borderWidth: 1,
     }

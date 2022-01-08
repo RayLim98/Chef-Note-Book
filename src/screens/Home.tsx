@@ -5,6 +5,8 @@ import {
     View,
     Animated,
     StyleSheet,
+    BackHandler,
+    Alert,
 } from 'react-native'
 import MainContainer from '../components/containers/MainContainer'
 import HeroSqButton from '../components/buttons/squareButton/heroSqButton'
@@ -29,7 +31,6 @@ const Home: FC<Props> = () => {
     const bgColor = useRef( new Animated.Value(0))
     const viewSizeAni = useRef( new Animated.Value(0.2)).current
     const viewOp = useRef( new Animated.Value(0)).current
-    
     const bgStyle = bgColor.current.interpolate({
         inputRange: [0,1],
         outputRange: ['#d5f9cd','rgb(85, 155, 69)'],
@@ -68,9 +69,19 @@ const Home: FC<Props> = () => {
     const settings = () => {
         console.log('settings had been pressed')
     }
+
     const onChangeText = (text: string) => {
         settextValue(text)
     }
+
+    useEffect(() => {
+        navigation.addListener('beforeRemove', (e)=> {
+            e.preventDefault()
+            if(isFocused) {
+                BackHandler.exitApp()
+            } 
+        })
+    }, [navigation])
 
     console.log('Search bar value:', textValue)
     return (

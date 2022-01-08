@@ -8,13 +8,16 @@ import Login from './src/screens/Login';
 import TabNav from './src/components/navigations/tabNav';
 import Recipe from './src/screens/Recipe';
 import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
+import Introduction from './src/screens/Introduction';
+import CreateRecipe from './src/screens/CreateRecipe';
 
 
 type RootStackParamList = {
   Login: undefined;
-  DashBoard: undefined;
+  DashBoard: object;
   Recipe: object
   CreateRecipe: undefined
+  Introduction: undefined
 }
 
 // const Stack = createStackNavigator<RootStackParamList>();
@@ -54,7 +57,12 @@ const App = () => {
             />
             <Stack.Screen 
               name="CreateRecipe" 
-              component={Recipe} 
+              component={CreateRecipe} 
+              options={ { ...OptionsConfig, title: "CreateRecipe" } }
+            />
+            <Stack.Screen 
+              name="Introduction" 
+              component={Introduction} 
               options={ { ...OptionsConfig, title: "CreateRecipe" } }
             />
         </Stack.Navigator>

@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import {
+    Text,
     View,
     Image,
 } from 'react-native'
@@ -9,55 +10,72 @@ import GenericInputField from '../components/inputFields/genericInputField'
 import OvalButton from '../components/buttons/roundedButton/OvalButton'
 import { SharedElement } from 'react-navigation-shared-element';
 import { useNavigation } from '@react-navigation/native';
+import { Controller, useForm } from 'react-hook-form';
 
 
 interface props {
 }
 
-interface credentials {
-    userName: string
-    password: string
-} 
+interface form  {
+    userName: string,
+    password: string,
+}
 
 const Login: React.FC<props> = ({}) => {
     const navigation = useNavigation()
-    const [credentials, setCredientials] = useState<credentials>({
-        userName: '',
-        password: '',
+    const {watch, control, handleSubmit, formState: {errors}} = useForm<form>({
+        defaultValues: {
+            userName: '',
+            password: ''
+        }
     })
 
-    const handleUserName = (text: string) => {
-       setCredientials({...credentials, userName: text}) 
+    const onSubmit = () => {
+        navigation.navigate('Introduction')
     }
 
-    const handlePassword = (text: string) => {
-       setCredientials({...credentials, password: text}) 
-    }
-
-    const handleSubmit = (item: object) => {
-        navigation.navigate('DashBoard', item)
-        console.log("Pressed!")
-    }
-
-    console.log('>>>', credentials)
+    console.log('>>>', watch)
     return (
         <MainContainer
             children2 = {
                 <>
                     <View style = {{alignSelf: 'center', flex: 3, justifyContent: 'center',}}>
-                        <GenericInputField 
-                            name = {'User Name'}
-                            value= {credentials.userName}
-                            onChangeText={handleUserName}
+                        {errors.userName && <Text style = {{color: 'red'}}>*UserName is empty</Text>}
+                        <Controller
+                            control={control}
+                            rules={{
+                                required: true,
+                            }}
+                            render={({field: {onChange, onBlur, value}}) => (
+                                <GenericInputField 
+                                    name = {'User Name'}
+                                    onBlur={onBlur}
+                                    value= {value}
+                                    onChangeText={onChange}
+                                />
+                            )}
+                            name='userName'
                         />
-                        <GenericInputField 
-                            name = {'Password'}
-                            value= {credentials.password}
-                            onChangeText={handlePassword}
-                            hidden
+                        {errors.userName && <Text style = {{color: 'red'}}>*UserName is empty</Text>}
+                        {errors.userName && <Text style = {{color: 'red'}}>*Password is empty</Text>}
+                        <Controller
+                            control={control}
+                            rules={{
+                                required: true,
+                            }}
+                            render={({field: {onChange, onBlur, value}}) => (
+                                <GenericInputField 
+                                    name = {'Password'}
+                                    onBlur={onBlur}
+                                    value= {value}
+                                    onChangeText={onChange}
+                                    hidden
+                                />
+                            )}
+                            name='password'
                         />
                         <OvalButton 
-                            onPress={()=> handleSubmit({ id: 'logo' , imageUrl: logo})}
+                            onPress={handleSubmit(onSubmit)}
                             style = {{alignSelf: 'flex-end'}}
                         >
                             Confirm

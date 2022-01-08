@@ -5,11 +5,16 @@ import { family, extraSmlFont } from './textConfigs'
 interface Props {
    children:  ReactNode 
    style:  TextStyle 
+   color?: string
 }
 
-const Text1: FC<Props> = ({children, style}) => {
+const Text1: FC<Props> = ({children, style, color}) => {
     return (
-        <Text style = {[styles.text, style]}>
+        <Text style = {[
+            styles.text, 
+            color? {color: color}: null, 
+            style
+        ]}>
             {children}
         </Text>
     )
