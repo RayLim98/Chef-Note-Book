@@ -23,11 +23,11 @@ const LowBarHeaderContainer: React.FC<Props> = ({
             >
                 {children}
             </BotLeftCurvedContainer>
-            <TopRightCurvedContainer
+            {/* <TopRightCurvedContainer
                 flex = {1}
                 bgColor={bgColor}
             >
-            </TopRightCurvedContainer>
+            </TopRightCurvedContainer> */}
         </View>
     )
 }

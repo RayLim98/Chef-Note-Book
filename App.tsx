@@ -1,16 +1,24 @@
 import 'react-native-gesture-handler'
 import { NavigationContainer } from '@react-navigation/native';
+import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
 import React from 'react';
 import {
+  StatusBar,
   StyleSheet,
 } from 'react-native';
 import Login from './src/screens/Login';
 import TabNav from './src/components/navigations/tabNav';
 import Recipe from './src/screens/Recipe';
-import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
 import Introduction from './src/screens/Introduction';
 import CreateRecipe from './src/screens/CreateRecipe';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
+import forFade from './src/screens/utils/forFade';
+import forSlide from './src/screens/utils/forSlide'
+import topSlide from './src/screens/utils/topSlide';
+import { CardStyleInterpolators } from '@react-navigation/stack';
+import { TransitionSpec } from '@react-navigation/stack/lib/typescript/src/types';
+import customStyle from './src/screens/utils/customCardStyle';
 
 type RootStackParamList = {
   Login: undefined;
@@ -27,11 +35,34 @@ const OptionsConfig = {
   headerShown: false,
   // animationEnabled: false,
 }
+const transitionConfig: TransitionSpec = {
+  animation: 'spring',
+  config: {
+    stiffness: 1000,
+    damping: 100,
+    mass: 3,
+    overshootClamping: true,
+    restDisplacementThreshold: 0.01,
+    restSpeedThreshold: 0.01,
+  },
+};
 
 const App = () => {
   return (
     <NavigationContainer>
-        <Stack.Navigator initialRouteName="Login">
+      <StatusBar translucent={true}/>
+      <SafeAreaView style = {{flex: 1}}>
+        <Stack.Navigator 
+          initialRouteName="Login"
+          screenOptions={{
+            transitionSpec: {
+              open: transitionConfig,
+              close: transitionConfig,
+            },
+            // cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
+            cardStyleInterpolator: customStyle,
+          }}
+        >
             <Stack.Screen 
               name="Login" 
               component={Login} 
@@ -40,20 +71,26 @@ const App = () => {
             <Stack.Screen 
               name="DashBoard" 
               component={TabNav} 
-              sharedElements={(route, otherRoute, showing) => {
-                return [
-                  {
-                    id: 'logo',
-                    animation: 'fade'
-                  }
-                ];
-              }}
+              // sharedElements={(route, otherRoute, showing) => {
+              //   return [
+              //     {
+              //       id: 'logo',
+              //       animation: 'fade'
+              //     }
+              //   ];
+              // }}
               options={ { ...OptionsConfig, title: "DashBoard" } }
             />
             <Stack.Screen 
               name="Recipe" 
               component={Recipe} 
-              options={ { ...OptionsConfig, title: "Recipe" } }
+              options={{ 
+                ...OptionsConfig, 
+                title: "Recipe" ,
+                // cardStyleInterpolator: topSlide,
+                // gestureEnabled: true,
+                // gestureDirection: 'vertical-inverted'
+              }}
             />
             <Stack.Screen 
               name="CreateRecipe" 
@@ -66,6 +103,7 @@ const App = () => {
               options={ { ...OptionsConfig, title: "CreateRecipe" } }
             />
         </Stack.Navigator>
+      </SafeAreaView>
     </NavigationContainer>
   );
 };

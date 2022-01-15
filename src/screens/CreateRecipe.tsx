@@ -6,6 +6,9 @@ import PlainUpperTab from '../components/upperTab/plainUpTab'
 import ImageButton from '../components/buttons/borderlessButton/imageButton'
 
 import plus_icon from '../assets/plus.png'
+import close_icon from '../assets/close.png'
+import capitalize from './utils/capitalize'
+import TextTitle from '../components/textComponents/textTitle'
 
 
 interface partition {
@@ -18,25 +21,21 @@ interface partition {
 interface Props {
     
 }
-
 const CreateRecipe: FC<Props> = ({}) => {
     const [state, setState] = useState<partition[]>([
         {
-            name: 'chicken',
+            name: 'Chicken',
             order: 1,
             amount: 5,
             unit: 'kg',
         },
         {
-            name: 'paprika',
+            name: 'Paprika',
             order: 2,
             amount: 2,
             unit: 'tsp',
         },
     ])
-
-    useEffect(() => {
-    }, [state])
 
     const createPartition = () => {
         const newPartition: partition = {
@@ -48,47 +47,58 @@ const CreateRecipe: FC<Props> = ({}) => {
         setState([...state, newPartition])
     }
 
-    const onChangeName = (text: string, index: number)=> {
+    const onChangeNameAtIndex = (text: string, index: number)=> {
         let newState: partition[] = [...state]
         let newElement = newState[index]
-        newElement.name = text 
+        newElement.name = capitalize(text) 
         newState[index] = newElement
         setState(newState)
     }
 
-    console.log(state)
+    const onDeleteAtIndex = () => {
+
+    }
+
+    // console.log(state)
     return (
         <LowBar>
-            <View style = {{flex: 1}}>
-                <PlainUpperTab onPressSettings={()=> {}}/>
-                <ScrollView style = {{flex: 1, padding: 16}}>
-                    <View style = {{
-                        backgroundColor: 'white',
-                        borderRadius: 25,
-                    }}>
+            <ScrollView style = {{flex: 1, padding: 16}}>
+                <View style = {{
+                    borderRadius: 25,
+                    backgroundColor: 'white',
+                    padding: '5%'
+                }}>
+            {/* <PlainUpperTab onPressSettings={()=> {}}/> */}
+                <View>
+                    <TextTitle>
+                        Add Recipe
+                    </TextTitle>
+                </View>
                         {
                             state?.map((item,i)=> (
                                 <View
                                     key={i}
-                                    style = {{paddingHorizontal: 16, borderBottomWidth: 1}}
+                                    style = {styles.partitionContainer}
                                 >
                                     <TextInput 
                                         placeholder='name'
                                         value={item.name}
-                                        onChangeText={(text)=> onChangeName(text,i)}
+                                        onChangeText={(text)=> onChangeNameAtIndex(text,i)}
 
+                                    />
+                                    <ImageButton
+                                        source={close_icon}
+                                        onPress={()=> {}}
                                     />
                                 </View>
                             ))
                         }
                         <View
-                            style = {{
-                                paddingHorizontal: 16,
-                                marginTop: 4,
-                                marginBottom: 16,
-                                alignItems: 'flex-end',
-                            }}
+                            style = {[styles.partitionContainer, {borderBottomWidth: 0}]}
                         >
+                            <View style = {{ flex: 1 }}>
+
+                            </View>
                             <ImageButton
                                 source={plus_icon}
                                 onPress={createPartition}
@@ -96,11 +106,18 @@ const CreateRecipe: FC<Props> = ({}) => {
                         </View>
                     </View>
                 </ScrollView>
-            </View>
         </LowBar>
     )
 }
 
 export default CreateRecipe
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    partitionContainer: {
+        paddingHorizontal: 16, 
+        borderBottomWidth: 1, 
+        flexDirection: 'row', 
+        justifyContent: 'space-between', 
+        alignItems: 'center',
+    }
+})

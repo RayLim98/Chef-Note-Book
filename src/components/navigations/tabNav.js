@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
     marginHorizontal: '15%',
   },
   tabBarContainer: {
+    paddingTop: 10,
     height: 70,
     borderRadius:1,
     backgroundColor: 'white',

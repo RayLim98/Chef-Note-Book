@@ -51,14 +51,14 @@ const ShopList: FC<Props> = ({ navigation }) => {
     return (
         <LowBarCont
             bgColor = {{backgroundColor: bgStyle}}
-            children1 = {
+        >
                 <Animated.View style = {{opacity: viewOp}}>
                     <Text>
                         nothing
                     </Text>
                 </Animated.View>
-            }
-        />
+
+        </LowBarCont>
     )
 }
 

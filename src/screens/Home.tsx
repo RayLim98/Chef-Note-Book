@@ -20,6 +20,7 @@ import ImageButton from '../components/buttons/borderlessButton/imageButton'
 import logo from '../assets/chef.png'
 import image from '../assets/biryani.png'
 import add from '../assets/add.png'
+import LowBarHeaderContainer from '../components/containers/LowBarCont'
 interface Props {
 }
 
@@ -78,49 +79,45 @@ const Home: FC<Props> = () => {
 
     console.log('Search bar value:', textValue)
     return (
-        <MainContainer
-            scale={viewSizeAni}
-            bgColor={{backgroundColor: bgStyle}}
-            children1={
-                <View style = {{flex: 1}}>
-                    <MainUpperTab logo={ 
-                        <SharedElement id = 'logo' style = {{flex: 1}}>
-                            <Image
-                                style = {styles.image}
-                                source={logo}
-                            />
-                        </SharedElement>}
-                        onChangeText={onChangeText}
-                        onPressSettings={settings}
-                    />
-                    <View style = {{flexDirection: 'row',}}>
-                        <TextTitle style = {{marginVertical:20, marginHorizontal: 16, }}> 
-                            Recipes 
-                        </TextTitle>
-                        <View style = {{justifyContent: 'center'}}>
-                            <ImageButton
-                                source = {add}
-                                onPress={()=> navigation.navigate('CreateRecipe')}
-                            />
-                        </View>
+        <LowBarHeaderContainer bgColor={{backgroundColor: bgStyle}}>
+            <View style = {{flex: 1}}>
+                {/* <MainUpperTab logo={ 
+                    <SharedElement id = 'logo' style = {{flex: 1}}>
+                        <Image
+                            style = {styles.image}
+                            source={logo}
+                        />
+                    </SharedElement>}
+                    onChangeText={onChangeText}
+                    onPressSettings={settings}
+                /> */}
+                <View style = {{flexDirection: 'row',}}>
+                    <TextTitle style = {{marginVertical: 20, marginHorizontal: 16, }}> 
+                        Recipes 
+                    </TextTitle>
+                    <View style = {{justifyContent: 'center'}}>
+                        <ImageButton
+                            source = {add}
+                            onPress={()=> navigation.navigate('CreateRecipe')}
+                        />
                     </View>
-                    <ScrollView style = {{flex: 1}}>
-                        <Animated.View style = {[ styles.listContainer]}>
-                            {   
-                                data.map((item)=> 
-                                        <HeroSqButton
-                                            onPress={()=> navigation.navigate('Recipe', item)}
-                                            key={item.name}
-                                            label={item.name}
-                                            uri={image}
-                                        />
-                                )
-                            } 
-                        </Animated.View>
-                    </ScrollView>
                 </View>
-            }
-        />
+                <ScrollView style = {{flex: 1}}>
+                    <Animated.View style = {[ styles.listContainer]}>
+                        {   
+                            data.map((item)=> 
+                                    <HeroSqButton
+                                        onPress={()=> navigation.navigate('Recipe', item)}
+                                        key={item.name}
+                                        label={item.name}
+                                        uri={image}
+                                    />
+                            )
+                        } 
+                    </Animated.View>
+                </ScrollView>
+            </View>
+        </LowBarHeaderContainer>
     )
 
 }
