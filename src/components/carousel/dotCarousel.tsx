@@ -5,18 +5,21 @@ const {width} = Dimensions.get('screen')
 
 interface Props {
    scrollX: any 
-   data: any[]
+   count?: number
 }
 
-const DotCarousel: FC<Props> = ({data, scrollX}) => {
+// const DotCarousel: FC<Props> = ({data, scrollX}) => {
+const DotCarousel: FC<Props> = ({count, scrollX}) => {
+    const arrayCounter = Array.from(Array(count||4).keys()) 
     return (
         <View style = {{
-            flexDirection: 'row', 
-            width: '100%',
-            alignItems: 'center',
-        }}>
+                alignSelf: 'stretch',
+                justifyContent: 'center',
+                flexDirection: 'row', 
+            }}
+        >
             {
-                data.map((item, index)=> { 
+                arrayCounter.map((_, index)=> { 
                     const inputRange =[(index-1)*width, (index)*width, (index+1)*width]
                     const scale = scrollX.interpolate({
                         inputRange,
@@ -30,12 +33,12 @@ const DotCarousel: FC<Props> = ({data, scrollX}) => {
                     })
                     const elevation = scrollX.interpolate({
                         inputRange,
-                        outputRange:[0, 5, 0],
+                        outputRange: [0, 5, 0],
                         extrapolate: 'clamp'
                     })
                     return (
                         <Animated.View
-                            key={item.key}
+                            key={index}
                             style = {[
                                 styles.indicator,
                                 {
@@ -61,12 +64,14 @@ export default DotCarousel
 const styles = StyleSheet.create({
     indicator: {
         flexDirection: 'row',
+        backgroundColor: 'blue',
         borderRadius: 25,
         borderWidth: 1,
         borderColor: '#559b45',
         height: 10,
         width: 10, 
         margin: 10,
+        marginVertical: 20,
         shadowColor: '#559b45',
         shadowOffset: {
             width: 3,

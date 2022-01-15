@@ -14,6 +14,7 @@ import { Controller, useForm } from 'react-hook-form';
 
 
 interface props {
+
 }
 
 interface form  {
@@ -23,10 +24,10 @@ interface form  {
 
 const Login: React.FC<props> = ({}) => {
     const navigation = useNavigation()
-    const {watch, control, handleSubmit, formState: {errors}} = useForm<form>({
+    const {control, handleSubmit, formState: {errors}} = useForm<form>({
         defaultValues: {
             userName: '',
-            password: ''
+            password: '',
         }
     })
 
@@ -34,7 +35,6 @@ const Login: React.FC<props> = ({}) => {
         navigation.navigate('Introduction')
     }
 
-    console.log('>>>', watch)
     return (
         <MainContainer
             children2 = {
@@ -56,8 +56,7 @@ const Login: React.FC<props> = ({}) => {
                             )}
                             name='userName'
                         />
-                        {errors.userName && <Text style = {{color: 'red'}}>*UserName is empty</Text>}
-                        {errors.userName && <Text style = {{color: 'red'}}>*Password is empty</Text>}
+                        {errors.password && <Text style = {{color: 'red'}}>*Password is empty</Text>}
                         <Controller
                             control={control}
                             rules={{

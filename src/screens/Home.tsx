@@ -30,7 +30,6 @@ const Home: FC<Props> = () => {
 
     const bgColor = useRef( new Animated.Value(0))
     const viewSizeAni = useRef( new Animated.Value(0.2)).current
-    const viewOp = useRef( new Animated.Value(0)).current
     const bgStyle = bgColor.current.interpolate({
         inputRange: [0,1],
         outputRange: ['#d5f9cd','rgb(85, 155, 69)'],
@@ -46,12 +45,6 @@ const Home: FC<Props> = () => {
             ).start(()=> {
                 console.log("Animation finished")
             })
-            Animated.timing(viewOp, {
-                    toValue: 1,
-                    duration: 1000,
-                    useNativeDriver: false,
-                }
-            ).start()
             Animated.timing(bgColor.current, {
                     toValue: 1,
                     useNativeDriver: false,
@@ -104,13 +97,15 @@ const Home: FC<Props> = () => {
                         <TextTitle style = {{marginVertical:20, marginHorizontal: 16, }}> 
                             Recipes 
                         </TextTitle>
-                        <ImageButton
-                            source = {add}
-                            onPress={()=> navigation.navigate('CreateRecipe')}
-                        />
+                        <View style = {{justifyContent: 'center'}}>
+                            <ImageButton
+                                source = {add}
+                                onPress={()=> navigation.navigate('CreateRecipe')}
+                            />
+                        </View>
                     </View>
                     <ScrollView style = {{flex: 1}}>
-                        <Animated.View style = {[ styles.listContainer, {opacity: viewOp} ]}>
+                        <Animated.View style = {[ styles.listContainer]}>
                             {   
                                 data.map((item)=> 
                                         <HeroSqButton

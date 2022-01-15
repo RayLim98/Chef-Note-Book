@@ -10,13 +10,14 @@ import Text3 from '../../textComponents/text3'
 
 interface Props {
     source: ImageSourcePropType
-    style?: ViewStyle
     onPress: ()=> void
+    height?: number
+    style?: ViewStyle
 }
 
-const ImageButton: FC<Props> = ({source, onPress, style}) => {
+const ImageButton: FC<Props> = ({source, onPress, style, height}) => {
     return (
-        <TouchableOpacity style = {[styles.container, style]}
+        <TouchableOpacity style = {[styles.container, style, height?{height: height}:{height: 40} ]}
             onPress={onPress}
         >
             <Image
@@ -31,21 +32,19 @@ export default ImageButton
 
 const styles = StyleSheet.create({
     container: {
-        height: 50,
         aspectRatio: 1,
-        padding: 12,
+        padding: 8,
         borderRadius: 25,
         backgroundColor: '#ffffff',
-        alignSelf: 'center',
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 4,
-        },
-        shadowOpacity: 0.32,
-        shadowRadius: 5.46,
+        // shadowColor: "#000",
+        // shadowOffset: {
+        //     width: 0,
+        //     height: 4,
+        // },
+        // shadowOpacity: 0.32,
+        // shadowRadius: 5.46,
 
-        elevation: 9,
+        // elevation: 9,
     },
     image: {
         flex:1,

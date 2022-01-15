@@ -3,27 +3,28 @@ import React, {useRef, useEffect} from 'react'
 import { Image, StyleSheet, Text, View, FlatList, Animated, TouchableOpacity, ImageSourcePropType, Dimensions, ViewToken } from 'react-native'
 import icon1 from '../assets/chef.png'
 import icon2 from '../assets/settings.png'
+import TextButton from '../components/buttons/borderlessButton/textButton'
 import DotCarousel from '../components/carousel/dotCarousel'
 
-const { width, height} = Dimensions.get('screen')
+const { width, height } = Dimensions.get('screen')
 
 const data: Slide[]  = [
     {
         key: '1',
         title: '',
-        description: '1st',
+        description: 'Welcome and thank you for downloading this app!',
         image: icon1,
     },
     {
         key: '2',
         title: '',
-        description: '2nd',
+        description: 'For every avid chef or baker! Create your app on the go!',
         image: icon2,
     },
     {
         key: '3',
         title: '',
-        description: '3nd',
+        description: 'Recipes saved locally on your device and saved in the cloud',
         image: icon2,
     },
     {
@@ -67,14 +68,20 @@ const Introduction = (props: Props) => {
         if(indexValue.current != null && (indexValue.current + 1 < data.length))
             flatListRef.current?.scrollToIndex({index: indexValue.current + 1}) 
         // nav to next screen 
-        else {
-            navigation.navigate('DashBoard')
-        }
+        else navigation.navigate('DashBoard')
+    }
+
+    const onBackPress = () => {
+        // if not null and if lower than the slide count
+        if(indexValue.current && indexValue.current != 0) 
+            flatListRef.current?.scrollToIndex({index: indexValue.current - 1}) 
+        
     }
 
     useEffect(() => {
         navigation.addListener('beforeRemove', (e)=> {
             e.preventDefault()
+            onBackPress()
         })
     }, [navigation])
 
@@ -93,51 +100,52 @@ const Introduction = (props: Props) => {
                 onViewableItemsChanged={onViewItem.current}
                 data = {data}
                 keyExtractor={(item) => item.key}
-                renderItem={({item, index}) => {
-                return (
-                    <View style ={{width, justifyContent: 'center', alignItems: 'center'}}>
-                        <View style = {{
-                                flex: 1,
-                                justifyContent: 'center',
-                            }}
-                        >
-                            <Image 
-                                source = {item.image}
-                                style = {{
-                                    width: width/2,
-                                    height: height/2,
-                                    resizeMode: 'contain',
+                renderItem={({item}: {item: Slide}) => {
+                    return (
+                        <View style ={{width, justifyContent: 'center', alignItems: 'center'}}>
+                            <View style = {{
+                                    flex: 1,
+                                    justifyContent: 'center',
                                 }}
-                            />
+                            >
+                                <Image 
+                                    source = {item.image}
+                                    style = {{
+                                        width: width/2,
+                                        height: height/2,
+                                        resizeMode: 'contain',
+                                    }}
+                                />
+                            </View>
+                            <Text
+                            style = {{ flex: 0.1 }}
+                            >
+                                {item.description}
+                            </Text>
                         </View>
-                        <Text
-                         style = {{ flex: 0.1 }}
-                        >
-                            {index}
-                        </Text>
-                    </View>
-                )}}
+                    )}}
             />
             {/* Carousel Indicator */}
             <DotCarousel
                 scrollX={scrollX}
-                data = {data}
+                count={data.length}
             />
             {/* nav Button */}
             <View style = {styles.lowerTab}>
-                <TouchableOpacity style = {styles.buttonContainer}>
-                    <Text>
-                        Skip
-                    </Text>
-                </TouchableOpacity>
-                <TouchableOpacity 
-                    onPress={onNextPress}
-                    style = {styles.buttonContainer}
+                <TextButton
+                    style={{height: 30, margin: 20,}}
+                    textStyle={{color: '#559b45', fontWeight: 'bold'}} 
+                    onPress={()=> navigation.navigate('DashBoard')}
                 >
-                    <Text>
-                        Next
-                    </Text>
-                </TouchableOpacity>
+                    Skip
+                </TextButton>
+                <TextButton
+                    style={{height: 30, margin: 20,}}
+                    textStyle={{color: '#559b45', fontWeight: 'bold'}} 
+                    onPress={onNextPress}
+                >
+                    Next
+                </TextButton>
             </View>
         </View>
     )
@@ -155,7 +163,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         width: '100%',
         justifyContent: 'space-between',
-        backgroundColor: 'blue'
     },
     buttonContainer: {
         padding: 25,

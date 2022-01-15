@@ -1,10 +1,11 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
-import MainContainer from '../components/containers/MainContainer'
-import LowBar from '../components/containers/LowBarCont'
-import { useNavigation, useRoute } from '@react-navigation/native'
-import PlainUpperTab from '../components/upperTab/plainUpTab'
 import { ScrollView, TextInput } from 'react-native-gesture-handler'
+import LowBar from '../components/containers/LowBarCont'
+import PlainUpperTab from '../components/upperTab/plainUpTab'
+import ImageButton from '../components/buttons/borderlessButton/imageButton'
+
+import plus_icon from '../assets/plus.png'
 
 
 interface partition {
@@ -28,11 +29,24 @@ const CreateRecipe: FC<Props> = ({}) => {
         },
         {
             name: 'paprika',
-            order: 1,
+            order: 2,
             amount: 2,
             unit: 'tsp',
-        }
+        },
     ])
+
+    useEffect(() => {
+    }, [state])
+
+    const createPartition = () => {
+        const newPartition: partition = {
+            name: '',
+            order: state.length + 1,
+            amount: 0,
+            unit: '',
+        }   
+        setState([...state, newPartition])
+    }
 
     const onChangeName = (text: string, index: number)=> {
         let newState: partition[] = [...state]
@@ -55,9 +69,11 @@ const CreateRecipe: FC<Props> = ({}) => {
                         {
                             state?.map((item,i)=> (
                                 <View
-                                    style = {{paddingHorizontal: 16}}
+                                    key={i}
+                                    style = {{paddingHorizontal: 16, borderBottomWidth: 1}}
                                 >
                                     <TextInput 
+                                        placeholder='name'
                                         value={item.name}
                                         onChangeText={(text)=> onChangeName(text,i)}
 
@@ -65,7 +81,19 @@ const CreateRecipe: FC<Props> = ({}) => {
                                 </View>
                             ))
                         }
-                        
+                        <View
+                            style = {{
+                                paddingHorizontal: 16,
+                                marginTop: 4,
+                                marginBottom: 16,
+                                alignItems: 'flex-end',
+                            }}
+                        >
+                            <ImageButton
+                                source={plus_icon}
+                                onPress={createPartition}
+                            />
+                        </View>
                     </View>
                 </ScrollView>
             </View>
