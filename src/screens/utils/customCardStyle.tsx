@@ -10,9 +10,9 @@ const customStyle: StackCardStyleInterpolator = ({ current, next, inverted, layo
             }),
             transform: [
                 {
-                    translateX: current.progress.interpolate({
+                    translateY: current.progress.interpolate({
                         inputRange: [0,1],
-                        outputRange: [screen.width*0.1, 0]
+                        outputRange: [screen.height*0.1, 0]
                     })
                 },
                 // {
@@ -28,7 +28,7 @@ const customStyle: StackCardStyleInterpolator = ({ current, next, inverted, layo
                     scale: next ? 
                         next.progress.interpolate({
                             inputRange: [0,1],
-                            outputRange: [1, 0.7]
+                            outputRange: [1, 0.9]
                         }): 1
                 }
             ]

@@ -19,7 +19,7 @@ const Recipe: FC<Props> = ({}) => {
     return (
         <LowBar>
             <View style = {{flex: 1}}>
-                <PlainUpperTab onPressSettings={()=> {}}/>
+                {/* <PlainUpperTab onPressSettings={()=> {}}/> */}
                 <ScrollView style = {{flex: 1, padding: 16}}>
                     <Text>
                         Recipe Screen
