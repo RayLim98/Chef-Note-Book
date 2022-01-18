@@ -72,7 +72,15 @@ const Home: FC<Props> = () => {
         navigation.addListener('beforeRemove', (e)=> {
             e.preventDefault()
             if(isFocused) {
-                BackHandler.exitApp()
+                Alert.alert(
+                    'Exit App',
+                    'Do you want to exit?',
+                    [
+                    {text: 'No', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                    {text: 'Yes', onPress: () => BackHandler.exitApp()},
+                    ],
+                    { cancelable: false });
+                    return true;
             } 
         })
     }, [navigation])
