@@ -20,12 +20,16 @@ import { CardStyleInterpolators } from '@react-navigation/stack';
 import { TransitionSpec } from '@react-navigation/stack/lib/typescript/src/types';
 import customStyle from './src/screens/utils/customCardStyle';
 
+import { AuthProvider } from './src/mongo/AuthProvider'
+import SignUp from './src/screens/SignUp';
+
 type RootStackParamList = {
   Login: undefined;
+  SignUp: undefined;
   DashBoard: object;
-  Recipe: object
-  CreateRecipe: undefined
-  Introduction: undefined
+  Recipe: object;
+  CreateRecipe: undefined;
+  Introduction: undefined;
 }
 
 // const Stack = createStackNavigator<RootStackParamList>();
@@ -49,62 +53,69 @@ const transitionConfig: TransitionSpec = {
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <StatusBar translucent={true}/>
-      <SafeAreaView style = {{flex: 1}}>
-        <Stack.Navigator 
-          initialRouteName="Login"
-          screenOptions={{
-            transitionSpec: {
-              open: transitionConfig,
-              close: transitionConfig,
-            },
-            // cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
-            cardStyleInterpolator: customStyle,
-          }}
-        >
-            <Stack.Screen 
-              name="Login" 
-              component={Login} 
-              options={ { ...OptionsConfig, title: "Login" } }
-            />
-            <Stack.Screen 
-              name="DashBoard" 
-              component={TabNav} 
-              // sharedElements={(route, otherRoute, showing) => {
-              //   return [
-              //     {
-              //       id: 'logo',
-              //       animation: 'fade'
-              //     }
-              //   ];
-              // }}
-              options={ { ...OptionsConfig, title: "DashBoard" } }
-            />
-            <Stack.Screen 
-              name="Recipe" 
-              component={Recipe} 
-              options={{ 
-                ...OptionsConfig, 
-                title: "Recipe" ,
-                // cardStyleInterpolator: topSlide,
-                // gestureEnabled: true,
-                // gestureDirection: 'vertical-inverted'
-              }}
-            />
-            <Stack.Screen 
-              name="CreateRecipe" 
-              component={CreateRecipe} 
-              options={ { ...OptionsConfig, title: "CreateRecipe" } }
-            />
-            <Stack.Screen 
-              name="Introduction" 
-              component={Introduction} 
-              options={ { ...OptionsConfig, title: "CreateRecipe" } }
-            />
-        </Stack.Navigator>
-      </SafeAreaView>
-    </NavigationContainer>
+    <AuthProvider>
+      <NavigationContainer>
+        <StatusBar translucent={true}/>
+        <SafeAreaView style = {{flex: 1}}>
+          <Stack.Navigator 
+            initialRouteName="Login"
+            screenOptions={{
+              transitionSpec: {
+                open: transitionConfig,
+                close: transitionConfig,
+              },
+              // cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
+              cardStyleInterpolator: customStyle,
+            }}
+          >
+              <Stack.Screen 
+                name="DashBoard" 
+                component={TabNav} 
+                // sharedElements={(route, otherRoute, showing) => {
+                //   return [
+                //     {
+                //       id: 'logo',
+                //       animation: 'fade'
+                //     }
+                //   ];
+                // }}
+                options={ { ...OptionsConfig, title: "DashBoard" } }
+              />
+              <Stack.Screen 
+                name="Login" 
+                component={Login} 
+                options={ { ...OptionsConfig, title: "Login" } }
+              />
+              <Stack.Screen 
+                name="Recipe" 
+                component={Recipe} 
+                options={{ 
+                  ...OptionsConfig, 
+                  title: "Recipe" ,
+                  // cardStyleInterpolator: topSlide,
+                  // gestureEnabled: true,
+                  // gestureDirection: 'vertical-inverted'
+                }}
+              />
+              <Stack.Screen 
+                name="CreateRecipe" 
+                component={CreateRecipe} 
+                options={ { ...OptionsConfig, title: "CreateRecipe" } }
+              />
+              <Stack.Screen 
+                name="Introduction" 
+                component={Introduction} 
+                options={ { ...OptionsConfig, title: "CreateRecipe" } }
+              />
+              <Stack.Screen 
+                name="SignUp" 
+                component={SignUp} 
+                options={ { ...OptionsConfig, title: "CreateRecipe" } }
+              />
+          </Stack.Navigator>
+        </SafeAreaView>
+      </NavigationContainer>
+    </AuthProvider>
   );
 };
 

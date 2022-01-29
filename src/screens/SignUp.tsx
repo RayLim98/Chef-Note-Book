@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import {
     Text,
     View,
@@ -24,9 +24,9 @@ interface form  {
     password: string,
 }
 
-const Login: React.FC<props> = ({}) => {
+const SignUp: React.FC<props> = ({}) => {
     const navigation = useNavigation()
-    const { signUp, signIn, annoySignIn, user } = useAuth()
+    const { signUp, signIn, annoySignIn } = useAuth()
     const {control, handleSubmit, formState: {errors}} = useForm<form>({
         defaultValues: {
             userName: '',
@@ -35,12 +35,13 @@ const Login: React.FC<props> = ({}) => {
     })
 
     const onSubmit = async (data: form) => {
-        signIn(data.userName, data.password).catch((err: object)=> console.log(err))
+        await signUp(data.userName, data.password)
+        // .then(()=>{
+        //     signIn(data.userName, data.password)
+        //     navigation.navigate("Introduction")
+        // })
+        // .catch(err=> console.log(err))
     }
-
-    useEffect(()=> {
-        if(user != null) navigation.navigate("DashBoard")
-    }, [user])
 
     return (
         <MainContainer
@@ -80,16 +81,6 @@ const Login: React.FC<props> = ({}) => {
                             )}
                             name='password'
                         />
-                        <View style = {{flexDirection: 'row', marginVertical: 5}}>
-                                <Text style = {{marginRight: 3}}>
-                                    Dont have an account?
-                                </Text>
-                            <TouchableOpacity onPress={()=> navigation.navigate('SignUp')}>
-                                <Text>
-                                    Sign Up
-                                </Text>
-                            </TouchableOpacity>
-                        </View>
                         <OvalButton 
                             onPress={handleSubmit(onSubmit)}
                             style = {{alignSelf: 'flex-end'}}
@@ -109,4 +100,4 @@ const Login: React.FC<props> = ({}) => {
     )
 }
 
-export default Login
+export default SignUp

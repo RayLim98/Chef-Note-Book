@@ -11,9 +11,8 @@ import TextTitle from '../components/textComponents/textTitle'
 import GreyInputField from '../components/inputFields/greyInputField'
 import OvalButton from '../components/buttons/roundedButton/OvalButton'
 
-
 interface partition {
-    name: string
+    igName: string
     amount?: number
     unit?: string
 }
@@ -26,12 +25,12 @@ const CreateRecipe: FC<Props> = ({}) => {
     const [name, setName] = useState<string>('')
     const [state, setState] = useState<partition[]>([
         {
-            name: 'Chicken',
+            igName: 'Chicken',
             amount: 5,
             unit: 'kg',
         },
         {
-            name: 'Paprika',
+            igName: 'Paprika',
             amount: 2,
             unit: 'tsp',
         },
@@ -39,7 +38,7 @@ const CreateRecipe: FC<Props> = ({}) => {
 
     const createPartition = () => {
         const newPartition: partition = {
-            name: '',
+            igName: '',
             amount: 0,
             unit: '',
         }   
@@ -49,7 +48,7 @@ const CreateRecipe: FC<Props> = ({}) => {
     const onChangeNameAtIndex = (text: string, index: number)=> {
         let newState: partition[] = [...state]
         let newElement = newState[index]
-        newElement.name = capitalize(text) 
+        newElement.igName = capitalize(text) 
         newState[index] = newElement
         setState(newState)
     }
@@ -79,6 +78,7 @@ const CreateRecipe: FC<Props> = ({}) => {
         console.log('submitted')
     }
 
+    console.log(state)
     return (
         <LowBar>
             <ScrollView style = {{flex: 1, padding: '5%'}}>
@@ -105,7 +105,7 @@ const CreateRecipe: FC<Props> = ({}) => {
                                 <TextInput 
                                     style = {{flex:2}}
                                     placeholder='name'
-                                    value={item.name}
+                                    value={item.igName}
                                     onChangeText={(text)=> onChangeNameAtIndex(text,i)}
 
                                 />

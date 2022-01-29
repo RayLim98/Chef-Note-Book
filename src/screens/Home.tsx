@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect, FC} from 'react'
 import { SharedElement } from 'react-navigation-shared-element'
 import {
+    Text,
     Image,
     View,
     Animated,
@@ -10,7 +11,7 @@ import {
 } from 'react-native'
 import MainContainer from '../components/containers/MainContainer'
 import HeroSqButton from '../components/buttons/squareButton/heroSqButton'
-import { ScrollView } from 'react-native-gesture-handler'
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import MainUpperTab from '../components/upperTab/mainUpTab'
 import TextTitle from '../components/textComponents/textTitle'
@@ -21,11 +22,13 @@ import logo from '../assets/chef.png'
 import image from '../assets/biryani.png'
 import add from '../assets/add.png'
 import LowBarHeaderContainer from '../components/containers/LowBarCont'
+import { useAuth } from '../mongo/AuthProvider'
 interface Props {
 }
 
 const Home: FC<Props> = () => {
     const navigation = useNavigation()
+    const {signOut, user} = useAuth()
     const [textValue, settextValue] = useState('')
     const isFocused = useIsFocused();
 
@@ -68,16 +71,29 @@ const Home: FC<Props> = () => {
         settextValue(text)
     }
 
-    useEffect(() => {
-        navigation.addListener('beforeRemove', (e)=> {
-            e.preventDefault()
-            if(isFocused) {
-                BackHandler.exitApp()
-            } 
-        })
-    }, [navigation])
+    const logOut = () => {
+        signOut()
+        navigation.navigate("Login")
+    }
 
-    console.log('Search bar value:', textValue)
+    // useEffect(() => {
+    //     navigation.addListener('beforeRemove', (e)=> {
+    //         e.preventDefault()
+    //         if(isFocused) {
+    //             BackHandler.exitApp()
+    //         } 
+    //     })
+    //     return(()=> {
+    //         navigation.removeListener('beforeRemove', (e)=> {
+    //             e.preventDefault()
+    //             if(isFocused) {
+    //                 BackHandler.exitApp()
+    //             } 
+    //         })
+    //     })
+    // }, [navigation])
+
+    // console.log('Logged in with user ID: ', user.id ? user.id: 'empty')
     return (
         <LowBarHeaderContainer bgColor={{backgroundColor: bgStyle}}>
             <View style = {{flex: 1}}>
@@ -114,6 +130,13 @@ const Home: FC<Props> = () => {
                                     />
                             )
                         } 
+                <TouchableOpacity
+                    onPress={logOut}
+                >
+                        <Text>
+                            logout
+                        </Text>
+                </TouchableOpacity>
                     </Animated.View>
                 </ScrollView>
             </View>
