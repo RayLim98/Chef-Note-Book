@@ -31,6 +31,7 @@ export default OvalButton
 
 const styles = StyleSheet.create({
    mainContainer: {
+        marginVertical: 1,
         height: 40,
         width: 125,
         borderRadius: 24, 

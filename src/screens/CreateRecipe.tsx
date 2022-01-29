@@ -9,6 +9,7 @@ import close_icon from '../assets/close.png'
 import capitalize from './utils/capitalize'
 import TextTitle from '../components/textComponents/textTitle'
 import GreyInputField from '../components/inputFields/greyInputField'
+import OvalButton from '../components/buttons/roundedButton/OvalButton'
 
 
 interface partition {
@@ -53,12 +54,31 @@ const CreateRecipe: FC<Props> = ({}) => {
         setState(newState)
     }
 
+    const onChangeQtyAtIndex = (text: string, index: number)=> {
+        let newState: partition[] = [...state]
+        let newElement = newState[index]
+        newElement.amount = parseInt(text) 
+        newState[index] = newElement
+        setState(newState)
+    }
+
+    const onChangeUnitAtIndex = (text: string, index: number)=> {
+        let newState: partition[] = [...state]
+        let newElement = newState[index]
+        newElement.unit = text 
+        newState[index] = newElement
+        setState(newState)
+    }
+
     const onDeleteAtIndex = (targetIndex: number) => {
         const filteredArray = state.filter((_, index) => index != targetIndex)
         setState([...filteredArray])
     }
 
-    // console.log(state)
+    const onSubmit = () => {
+        console.log('submitted')
+    }
+
     return (
         <LowBar>
             <ScrollView style = {{flex: 1, padding: '5%'}}>
@@ -76,7 +96,6 @@ const CreateRecipe: FC<Props> = ({}) => {
                     backgroundColor: 'white',
                     padding: '5%'
                 }}>
-                {/* <PlainUpperTab onPressSettings={()=> {}}/> */}
                     {
                         state?.map((item,i)=> (
                             <View
@@ -84,9 +103,24 @@ const CreateRecipe: FC<Props> = ({}) => {
                                 style = {styles.partitionContainer}
                             >
                                 <TextInput 
+                                    style = {{flex:2}}
                                     placeholder='name'
                                     value={item.name}
                                     onChangeText={(text)=> onChangeNameAtIndex(text,i)}
+
+                                />
+                                <TextInput 
+                                    style = {{flex:1}}
+                                    placeholder='Qty'
+                                    value={item.amount? `${item.amount}`: undefined }
+                                    onChangeText={(text)=> onChangeQtyAtIndex(text,i)}
+
+                                />
+                                <TextInput 
+                                    style = {{flex:1}}
+                                    placeholder='Unit'
+                                    value={item.unit}
+                                    onChangeText={(text)=> onChangeUnitAtIndex(text,i)}
 
                                 />
                                 <ImageButton
@@ -108,6 +142,12 @@ const CreateRecipe: FC<Props> = ({}) => {
                         />
                     </View>
                 </View>
+                <OvalButton
+                    onPress={onSubmit}
+                    style={{backgroundColor: 'white', alignSelf: 'center', width: '50%', marginTop: 10,}}
+                >
+                    Confirm
+                </OvalButton>
             </ScrollView>
         </LowBar>
     )
