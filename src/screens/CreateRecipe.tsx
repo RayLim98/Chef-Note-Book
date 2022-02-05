@@ -34,29 +34,11 @@ const CreateRecipe: FC<Props> = ({}) => {
     const navigation = useNavigation()
     const [state, setState] = useState<ingredientInterface[]>([
         {
-            igName: 'Chicken',
-            amount: 5,
-            unit: 'kg',
-        },
-        {
-            igName: 'Paprika',
-            amount: 2,
-            unit: 'tsp',
+            igName: '',
+            amount: 0,
+            unit: '',
         },
     ])
-    const OpenRealmBehaviorConfiguration = {
-        type: 'openImmediately',
-    };
-    const config: any = {
-        schema: [ recipeSchema, ingredientSchema ],
-        sync: {
-        // ToDO: implement user.id as the partition value for later iterations
-            user: user,
-            partitionValue: user.id,
-            newRealmFileBehavior: OpenRealmBehaviorConfiguration,
-            existingRealmFileBehavior: OpenRealmBehaviorConfiguration,
-        },
-    };
 
     const createPartition = () => {
         const newPartition: ingredientInterface = {

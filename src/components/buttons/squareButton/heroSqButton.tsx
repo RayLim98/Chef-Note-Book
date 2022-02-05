@@ -23,9 +23,9 @@ export default HeroSqButton
 
 const styles = StyleSheet.create({
     mainContiner: {
-        margin: 5,
         aspectRatio: 1,
-        width:100,
+        width: '29%',
+        marginHorizontal: '2%',
         borderRadius:14,
         flexWrap: 'wrap',
         justifyContent: 'center',

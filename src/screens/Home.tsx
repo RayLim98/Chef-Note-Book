@@ -96,16 +96,6 @@ const Home: FC<Props> = () => {
     return (
         <LowBarHeaderContainer bgColor={{backgroundColor: bgStyle}}>
             <View style = {{flex: 1}}>
-                {/* <MainUpperTab logo={ 
-                    <SharedElement id = 'logo' style = {{flex: 1}}>
-                        <Image
-                            style = {styles.image}
-                            source={logo}
-                        />
-                    </SharedElement>}
-                    onChangeText={onChangeText}
-                    onPressSettings={settings}
-                /> */}
                 <View style = {{flexDirection: 'row',}}>
                     <TextTitle style = {{marginVertical: 20, marginHorizontal: 16, }}> 
                         Recipes 
@@ -118,12 +108,11 @@ const Home: FC<Props> = () => {
                     </View>
                 </View>
                 <ScrollView style = {{flex: 1}}>
-                    <Animated.View style = {[ styles.listContainer]}>
-                        {   recipes? 
+                        <View style = { styles.listContainer }>
+                            {    
                                 recipes.map((recipe: recipeInterface)=> 
                                     recipe
                                     ?  <HeroSqButton
-                                            // key={uuid()}
                                             onPress={()=> {
                                                 navigation.navigate('Recipe', recipe)
                                             }}
@@ -133,9 +122,8 @@ const Home: FC<Props> = () => {
                                         />
                                     : null
                                 )
-                            : null
-                        } 
-                    </Animated.View>
+                            } 
+                        </View>
                 </ScrollView>
             </View>
         </LowBarHeaderContainer>
@@ -150,8 +138,8 @@ const styles = StyleSheet.create({
         flex:1, 
         flexWrap: 'wrap', 
         flexDirection: 'row',
-        justifyContent: 'space-evenly', 
         marginVertical: 20,
+        marginHorizontal: 20,
     },
     headerContainer: {
         height: 60,
