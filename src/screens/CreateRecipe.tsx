@@ -1,6 +1,11 @@
+// Modules
 import React, { FC, useEffect, useState } from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
 import { ScrollView, TextInput } from 'react-native-gesture-handler'
+import { ObjectId } from 'bson'
+import Realm from 'realm'
+
+// Components
 import LowBar from '../components/containers/LowBarCont'
 import ImageButton from '../components/buttons/borderlessButton/imageButton'
 
@@ -11,19 +16,23 @@ import TextTitle from '../components/textComponents/textTitle'
 import GreyInputField from '../components/inputFields/greyInputField'
 import OvalButton from '../components/buttons/roundedButton/OvalButton'
 
-interface partition {
-    igName: string
-    amount?: number
-    unit?: string
-}
+
+// Mongo
+import ingredientInterface from '../mongo/realmObjects/ingrediantInterface'
+import ingredientSchema from '../mongo/schemas/ingrediantSchema'
+import recipeSchema from '../mongo/schemas/recipeSchema'
+import { useAuth } from '../mongo/AuthProvider'
+import { useNavigation } from '@react-navigation/native'
 
 interface Props {
     
 }
 
 const CreateRecipe: FC<Props> = ({}) => {
+    const { user, createRecipe } = useAuth()
     const [name, setName] = useState<string>('')
-    const [state, setState] = useState<partition[]>([
+    const navigation = useNavigation()
+    const [state, setState] = useState<ingredientInterface[]>([
         {
             igName: 'Chicken',
             amount: 5,
@@ -35,9 +44,22 @@ const CreateRecipe: FC<Props> = ({}) => {
             unit: 'tsp',
         },
     ])
+    const OpenRealmBehaviorConfiguration = {
+        type: 'openImmediately',
+    };
+    const config: any = {
+        schema: [ recipeSchema, ingredientSchema ],
+        sync: {
+        // ToDO: implement user.id as the partition value for later iterations
+            user: user,
+            partitionValue: user.id,
+            newRealmFileBehavior: OpenRealmBehaviorConfiguration,
+            existingRealmFileBehavior: OpenRealmBehaviorConfiguration,
+        },
+    };
 
     const createPartition = () => {
-        const newPartition: partition = {
+        const newPartition: ingredientInterface = {
             igName: '',
             amount: 0,
             unit: '',
@@ -46,7 +68,7 @@ const CreateRecipe: FC<Props> = ({}) => {
     }
 
     const onChangeNameAtIndex = (text: string, index: number)=> {
-        let newState: partition[] = [...state]
+        let newState: ingredientInterface[] = [...state]
         let newElement = newState[index]
         newElement.igName = capitalize(text) 
         newState[index] = newElement
@@ -54,7 +76,7 @@ const CreateRecipe: FC<Props> = ({}) => {
     }
 
     const onChangeQtyAtIndex = (text: string, index: number)=> {
-        let newState: partition[] = [...state]
+        let newState: ingredientInterface[] = [...state]
         let newElement = newState[index]
         newElement.amount = parseInt(text) 
         newState[index] = newElement
@@ -62,7 +84,7 @@ const CreateRecipe: FC<Props> = ({}) => {
     }
 
     const onChangeUnitAtIndex = (text: string, index: number)=> {
-        let newState: partition[] = [...state]
+        let newState: ingredientInterface[] = [...state]
         let newElement = newState[index]
         newElement.unit = text 
         newState[index] = newElement
@@ -74,8 +96,9 @@ const CreateRecipe: FC<Props> = ({}) => {
         setState([...filteredArray])
     }
 
-    const onSubmit = () => {
-        console.log('submitted')
+    const onSubmit = async () => {
+        await createRecipe(name, state)
+        navigation.navigate("DashBoard")
     }
 
     console.log(state)

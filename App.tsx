@@ -28,8 +28,8 @@ type RootStackParamList = {
   SignUp: undefined;
   DashBoard: object;
   Recipe: object;
-  CreateRecipe: undefined;
-  Introduction: undefined;
+  CreateRecipe: any;
+  Introduction: any;
 }
 
 // const Stack = createStackNavigator<RootStackParamList>();
@@ -53,8 +53,8 @@ const transitionConfig: TransitionSpec = {
 
 const App = () => {
   return (
-    <AuthProvider>
-      <NavigationContainer>
+    <NavigationContainer>
+      <AuthProvider>
         <StatusBar translucent={true}/>
         <SafeAreaView style = {{flex: 1}}>
           <Stack.Navigator 
@@ -105,17 +105,17 @@ const App = () => {
               <Stack.Screen 
                 name="Introduction" 
                 component={Introduction} 
-                options={ { ...OptionsConfig, title: "CreateRecipe" } }
+                options={ { ...OptionsConfig, title: "Introduction" } }
               />
               <Stack.Screen 
                 name="SignUp" 
                 component={SignUp} 
-                options={ { ...OptionsConfig, title: "CreateRecipe" } }
+                options={ { ...OptionsConfig, title: "SignUp" } }
               />
           </Stack.Navigator>
         </SafeAreaView>
-      </NavigationContainer>
-    </AuthProvider>
+      </AuthProvider>
+    </NavigationContainer>
   );
 };
 

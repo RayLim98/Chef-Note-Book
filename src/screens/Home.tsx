@@ -1,44 +1,45 @@
 import React, { useRef, useState, useEffect, FC} from 'react'
 import { SharedElement } from 'react-navigation-shared-element'
 import {
-    Text,
-    Image,
     View,
     Animated,
     StyleSheet,
     BackHandler,
-    Alert,
 } from 'react-native'
-import MainContainer from '../components/containers/MainContainer'
-import HeroSqButton from '../components/buttons/squareButton/heroSqButton'
+import { useAuth } from '../mongo/AuthProvider'
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
-import MainUpperTab from '../components/upperTab/mainUpTab'
-import TextTitle from '../components/textComponents/textTitle'
-import data from '../dummyData/recipes'
-import ImageButton from '../components/buttons/borderlessButton/imageButton'
+import recipeInterface from '../mongo/realmObjects/recipeInterface'
 
-import logo from '../assets/chef.png'
+// Images
 import image from '../assets/biryani.png'
 import add from '../assets/add.png'
 import LowBarHeaderContainer from '../components/containers/LowBarCont'
-import { useAuth } from '../mongo/AuthProvider'
+
+// Components
+import TextTitle from '../components/textComponents/textTitle'
+import ImageButton from '../components/buttons/borderlessButton/imageButton'
+import HeroSqButton from '../components/buttons/squareButton/heroSqButton'
+
+import { uniqueId } from 'lodash'
+
+
 interface Props {
 }
 
 const Home: FC<Props> = () => {
     const navigation = useNavigation()
-    const {signOut, user} = useAuth()
+    const {signOut, user, recipes} = useAuth()
     const [textValue, settextValue] = useState('')
-    const isFocused = useIsFocused();
 
+    const isFocused = useIsFocused();
     const bgColor = useRef( new Animated.Value(0))
     const viewSizeAni = useRef( new Animated.Value(0.2)).current
     const bgStyle = bgColor.current.interpolate({
         inputRange: [0,1],
         outputRange: ['#d5f9cd','rgb(85, 155, 69)'],
     })
-    
+
     useEffect(() => {
         if( isFocused ) {
             Animated.timing(viewSizeAni, {
@@ -71,29 +72,27 @@ const Home: FC<Props> = () => {
         settextValue(text)
     }
 
-    const logOut = () => {
-        signOut()
-        navigation.navigate("Login")
-    }
+    const logOut = () => signOut(()=> navigation.navigate("DashBoard"))
 
-    // useEffect(() => {
-    //     navigation.addListener('beforeRemove', (e)=> {
-    //         e.preventDefault()
-    //         if(isFocused) {
-    //             BackHandler.exitApp()
-    //         } 
-    //     })
-    //     return(()=> {
-    //         navigation.removeListener('beforeRemove', (e)=> {
-    //             e.preventDefault()
-    //             if(isFocused) {
-    //                 BackHandler.exitApp()
-    //             } 
-    //         })
-    //     })
-    // }, [navigation])
+    useEffect(() => {
+        navigation.addListener('beforeRemove', (e)=> {
+            e.preventDefault()
+            if(isFocused) {
+                BackHandler.exitApp()
+            } 
+        })
+        return(()=> {
+            navigation.removeListener('beforeRemove', (e)=> {
+                e.preventDefault()
+                if(isFocused) {
+                    BackHandler.exitApp()
+                } 
+            })
+        })
+    }, [navigation])
 
     // console.log('Logged in with user ID: ', user.id ? user.id: 'empty')
+    console.log('User Recipes: ', recipes)
     return (
         <LowBarHeaderContainer bgColor={{backgroundColor: bgStyle}}>
             <View style = {{flex: 1}}>
@@ -120,23 +119,22 @@ const Home: FC<Props> = () => {
                 </View>
                 <ScrollView style = {{flex: 1}}>
                     <Animated.View style = {[ styles.listContainer]}>
-                        {   
-                            data.map((item)=> 
-                                    <HeroSqButton
-                                        onPress={()=> navigation.navigate('Recipe', item)}
-                                        key={item.name}
-                                        label={item.name}
-                                        uri={image}
-                                    />
-                            )
+                        {   recipes? 
+                                recipes.map((recipe: recipeInterface)=> 
+                                    recipe
+                                    ?  <HeroSqButton
+                                            // key={uuid()}
+                                            onPress={()=> {
+                                                navigation.navigate('Recipe', recipe)
+                                            }}
+                                            key={uniqueId()}
+                                            label={recipe.name}
+                                            uri={image}
+                                        />
+                                    : null
+                                )
+                            : null
                         } 
-                <TouchableOpacity
-                    onPress={logOut}
-                >
-                        <Text>
-                            logout
-                        </Text>
-                </TouchableOpacity>
                     </Animated.View>
                 </ScrollView>
             </View>

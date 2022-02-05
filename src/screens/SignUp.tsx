@@ -36,11 +36,13 @@ const SignUp: React.FC<props> = ({}) => {
 
     const onSubmit = async (data: form) => {
         await signUp(data.userName, data.password)
-        // .then(()=>{
-        //     signIn(data.userName, data.password)
-        //     navigation.navigate("Introduction")
-        // })
-        // .catch(err=> console.log(err))
+        .then(()=>{
+            signIn(data.userName, data.password)
+            .then(()=>
+                navigation.navigate("Introduction")
+            )
+        })
+        .catch((err: object)=> console.log(err))
     }
 
     return (

@@ -1,6 +1,11 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import Realm from "realm";
+import { ObjectId } from "bson";
 import { getRealmApp } from "./getRealmApp";
+import recipeInterface from "./realmObjects/recipeInterface";
+import recipeSchema from "./schemas/recipeSchema";
+import ingredientSchema from "./schemas/ingrediantSchema";
+import { useNavigation } from "@react-navigation/native";
 // Access the Realm App.
 const app = getRealmApp();
 
@@ -14,6 +19,7 @@ const AuthContext = React.createContext<any | null>(null);
 const AuthProvider = ({ children }: {children: React.ReactNode}) => {
   const [user, setUser] = useState<any>(app.currentUser);
   const realmRef = useRef<any>(null);
+  const [recipes, setRecipes] = useState<any>()
 
   // function errorSync(_session, error) {
   //   const realm = realmRef.current
@@ -40,23 +46,23 @@ const AuthProvider = ({ children }: {children: React.ReactNode}) => {
     if (!user) {
       return;
     }
-    // The current user always has their own project, so we don't need
-    // to wait for the user object to load before displaying that project.
     const config = {
-      // schema: [BookSchema, ExampleDataSchema, FeverSymptomSchema],
+      schema: [ recipeSchema, ingredientSchema ],
       sync: {
         user: user,
         partitionValue: user.id,
-        // error: errorSync,
       },
     };
-    // Open a realm with the logged in user's partition value in order
-    // to get the projects that the logged in user is a member of
     Realm.open(config)
     .then((userRealm) => {
         console.log('Auth Realm has opened', userRealm)
         realmRef.current = userRealm
-        // TODO: Obtain and sync user data here
+        // Set user recipes
+        const recipes = userRealm.objects<recipeInterface>('recipe')
+        setRecipes(recipes)
+        recipes.addListener(()=> {
+          setRecipes(recipes)
+        })
       }
     )
     .catch(err => console.log('could not reach realm', err));
@@ -100,15 +106,37 @@ const AuthProvider = ({ children }: {children: React.ReactNode}) => {
 
   // The signOut function calls the logOut function on the currently
   // logged in user
-  const signOut = async(): Promise<void> => {
+  const signOut = async(callback: ()=> void): Promise<void> => {
     if (user == null) {
       console.warn("Not logged in, can't log out!");
       return;
     }
     user.logOut();
     setUser(null);
+    callback()
   };
 
+  // Create recipe
+  const createRecipe = (name: string, recipe: any[]) => {
+    const userRealm = realmRef.current
+    userRealm.write(()=> {
+      userRealm.create("recipe", {
+        _id: new ObjectId(),
+        _partition: user.id,
+        dateCreated: "test",
+        name: name,
+        recipe: recipe,
+      })
+    })
+  }
+
+  const deleteRecipe = () => {
+    // ToDo
+  }
+
+  const editRecipe = () => {
+    // ToDo
+  }
   return (
     <AuthContext.Provider
       value={{
@@ -117,6 +145,8 @@ const AuthProvider = ({ children }: {children: React.ReactNode}) => {
         signOut,
         annoySignIn,
         user,
+        recipes,
+        createRecipe,
         // globalPartitionValue,
         // projectData, // list of projects the user is a memberOf
       }}
