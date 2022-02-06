@@ -6,22 +6,22 @@ import {
   StatusBar,
   StyleSheet,
 } from 'react-native';
-import Login from './src/screens/Login';
+import Login from './src/views/Login';
 import TabNav from './src/components/navigations/tabNav';
-import Recipe from './src/screens/Recipe';
-import Introduction from './src/screens/Introduction';
-import CreateRecipe from './src/screens/CreateRecipe';
+import Recipe from './src/views/Recipe';
+import Introduction from './src/views/Introduction';
+import CreateRecipe from './src/views/CreateRecipe';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import forFade from './src/screens/utils/forFade';
-import forSlide from './src/screens/utils/forSlide'
-import topSlide from './src/screens/utils/topSlide';
+import forFade from './src/views/utils/forFade';
+import forSlide from './src/views/utils/forSlide'
+import topSlide from './src/views/utils/topSlide';
 import { CardStyleInterpolators } from '@react-navigation/stack';
 import { TransitionSpec } from '@react-navigation/stack/lib/typescript/src/types';
-import customStyle from './src/screens/utils/customCardStyle';
+import customStyle from './src/views/utils/customCardStyle';
 
 import { AuthProvider } from './src/mongo/AuthProvider'
-import SignUp from './src/screens/SignUp';
+import SignUp from './src/views/SignUp';
 
 type RootStackParamList = {
   Login: undefined;

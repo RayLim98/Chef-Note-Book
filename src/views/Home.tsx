@@ -109,7 +109,7 @@ const Home: FC<Props> = () => {
                 </View>
                 <ScrollView style = {{flex: 1}}>
                         <View style = { styles.listContainer }>
-                            {    
+                            {   recipes? 
                                 recipes.map((recipe: recipeInterface)=> 
                                     recipe
                                     ?  <HeroSqButton
@@ -121,7 +121,7 @@ const Home: FC<Props> = () => {
                                             uri={image}
                                         />
                                     : null
-                                )
+                                ): null
                             } 
                         </View>
                 </ScrollView>

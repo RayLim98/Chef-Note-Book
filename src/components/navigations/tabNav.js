@@ -3,8 +3,8 @@ import {
     Image,
     StyleSheet,
 } from 'react-native'
-import Home from '../../screens/Home';
-import ShopList from '../../screens/ShopList';
+import Home from '../../views/Home';
+import ShopList from '../../views/ShopList';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import r_b from '../../assets/recipe-book.png'
 import food from '../../assets/food.png'
