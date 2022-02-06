@@ -9,7 +9,7 @@ import {
 interface Props {
     children: ReactNode    
     style?: TextStyle
-    textStyle: TextStyle
+    textStyle?: TextStyle
     onPress: ()=> void
 }
 
