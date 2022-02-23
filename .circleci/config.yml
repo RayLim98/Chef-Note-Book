@@ -35,4 +35,4 @@ jobs:
 workflows:
   install-and-unit-test:
     jobs:
-      - unit-test
+      - install-dependencies
