@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useRef } from 'react'
 import { StyleSheet, Dimensions, View, Animated } from 'react-native'
 
 const {width} = Dimensions.get('screen')

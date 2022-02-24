@@ -4,4 +4,4 @@ import App from './App';
 import Story from './storybook'
 import {name as appName} from './app.json';
 
-AppRegistry.registerComponent(appName, () => Story);
+AppRegistry.registerComponent(appName, () => App);

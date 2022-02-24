@@ -5,7 +5,6 @@ import { getRealmApp } from "./getRealmApp";
 import recipeInterface from "./realmObjects/recipeInterface";
 import recipeSchema from "./schemas/recipeSchema";
 import ingredientSchema from "./schemas/ingrediantSchema";
-import { useNavigation } from "@react-navigation/native";
 // Access the Realm App.
 const app = getRealmApp();
 
@@ -78,8 +77,6 @@ const AuthProvider = ({ children }: {children: React.ReactNode}) => {
     };
   }, [user]);
 
-  // The signIn function takes an email and password and uses the
-  // emailPassword authentication provider to log in.
   const signIn = async (email: string, password: string) => {
     const creds = Realm.Credentials.emailPassword(email, password);
     const newUser = await app.logIn(creds);
@@ -87,15 +84,12 @@ const AuthProvider = ({ children }: {children: React.ReactNode}) => {
     setUser(newUser);
   };
   
-  // Anonymouse sign in 
   const annoySignIn = async () => {
     const creds = Realm.Credentials.anonymous();
     const newUser = await app.logIn(creds);
     setUser(newUser);
   };
 
-  // The signUp function takes an email and password and uses the
-  // emailPassword authentication provider to register the user.
   const signUp = async (email: string, password: string): Promise<void> => {
     try{
       await app.emailPasswordAuth.registerUser({email, password});
@@ -104,8 +98,6 @@ const AuthProvider = ({ children }: {children: React.ReactNode}) => {
     }
   };
 
-  // The signOut function calls the logOut function on the currently
-  // logged in user
   const signOut = async(callback: ()=> void): Promise<void> => {
     if (user == null) {
       console.warn("Not logged in, can't log out!");
@@ -147,8 +139,6 @@ const AuthProvider = ({ children }: {children: React.ReactNode}) => {
         user,
         recipes,
         createRecipe,
-        // globalPartitionValue,
-        // projectData, // list of projects the user is a memberOf
       }}
     >
       {children}

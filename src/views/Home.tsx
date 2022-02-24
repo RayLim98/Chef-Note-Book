@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect, FC} from 'react'
 import { SharedElement } from 'react-navigation-shared-element'
 import {
     View,
+    Text,
     Animated,
     StyleSheet,
     BackHandler,
@@ -107,6 +108,9 @@ const Home: FC<Props> = () => {
                         />
                     </View>
                 </View>
+                <TouchableOpacity onPress={logOut}>
+                    <Text>hello</Text>
+                </TouchableOpacity>
                 <ScrollView style = {{flex: 1}}>
                         <View style = { styles.listContainer }>
                             {   recipes? 

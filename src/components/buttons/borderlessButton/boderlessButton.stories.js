@@ -3,6 +3,7 @@ import { storiesOf } from "@storybook/react-native";
 import CenterView from '../../CenterView'
 import TextButton from './textButton'
 import ImageButton from './imageButton'
+import image from '../../../assets/biryani.png'
 
 
 storiesOf("Borderless Button", module)
@@ -10,6 +11,7 @@ storiesOf("Borderless Button", module)
     .add('primary', ()=> ( 
         <TextButton
             onPress={()=> console.log('Ping')}
+            source = {image}
         >
             Hello
         </TextButton>
@@ -17,6 +19,7 @@ storiesOf("Borderless Button", module)
     .add('image', ()=> ( 
         <ImageButton
             onPress={()=> console.log('Ping')}
+            source = {image}
         >
             Hello
         </ImageButton>

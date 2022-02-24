@@ -8,11 +8,10 @@ const syncConfig = (user: any, schema: any[]) => {
     const config: any = {
         schema: schema,
         sync: {
-        // ToDO: implement user.id as the partition value for later iterations
-        user: user,
-        partitionValue: user.id,
-        newRealmFileBehavior: OpenRealmBehaviorConfiguration,
-        existingRealmFileBehavior: OpenRealmBehaviorConfiguration,
+            user: user,
+            partitionValue: user.id,
+            newRealmFileBehavior: OpenRealmBehaviorConfiguration,
+            existingRealmFileBehavior: OpenRealmBehaviorConfiguration,
         },
     };
   return config
