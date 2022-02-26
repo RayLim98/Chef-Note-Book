@@ -45,6 +45,7 @@ const AuthProvider = ({ children }: {children: React.ReactNode}) => {
     if (!user) {
       return;
     }
+
     const config = {
       schema: [ recipeSchema, ingredientSchema ],
       sync: {
@@ -52,6 +53,7 @@ const AuthProvider = ({ children }: {children: React.ReactNode}) => {
         partitionValue: user.id,
       },
     };
+
     Realm.open(config)
     .then((userRealm) => {
         console.log('Auth Realm has opened', userRealm)
@@ -123,11 +125,11 @@ const AuthProvider = ({ children }: {children: React.ReactNode}) => {
   }
 
   const deleteRecipe = () => {
-    // ToDo
+    // TODO: 
   }
 
   const editRecipe = () => {
-    // ToDo
+    // TODO:
   }
   return (
     <AuthContext.Provider
