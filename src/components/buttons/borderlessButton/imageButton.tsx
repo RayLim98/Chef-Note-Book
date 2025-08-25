@@ -15,7 +15,7 @@ interface Props {
     style?: ViewStyle
 }
 
-// Yeet
+// Yeet another one
 const ImageButton: FC<Props> = ({source, onPress, style, height}) => {
     return (
         <TouchableOpacity style = {[styles.container, style, height?{height: height}:{height: 40} ]}
