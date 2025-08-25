@@ -12,6 +12,8 @@ interface Props {
     bgColor?: Animated.Value | string
     scale: any
 }
+
+// hello
 const LowBarHeaderContainer: React.FC<Props> = ({
         children1,
         children2,
